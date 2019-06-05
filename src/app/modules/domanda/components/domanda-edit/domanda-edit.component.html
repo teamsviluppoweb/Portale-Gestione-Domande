@@ -1,0 +1,13 @@
+<form [formGroup]="form">
+  <mat-vertical-stepper #stepper [linear]="true">
+    <mat-step label="Informazioni personali">
+      <app-step-anagrafica [formGroup]="form"></app-step-anagrafica>
+    </mat-step>
+
+    <mat-step label="Invia Domanda">
+      <button type="submit">Submit</button>
+    </mat-step>
+
+  </mat-vertical-stepper>
+
+</form>
