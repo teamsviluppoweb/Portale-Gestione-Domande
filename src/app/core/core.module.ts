@@ -22,7 +22,7 @@ import {TokenInterceptor} from './interceptors';
       multi: true
     }
 
-  ]
+  ],
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

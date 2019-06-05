@@ -7,11 +7,13 @@ import {AuthModule} from './modules/auth/auth.module';
 import {CoreModule} from './core';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NavbarComponent} from './layouts/navbar/navbar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
     ContentLayoutComponent,
     AuthLayoutComponent,
   ],
