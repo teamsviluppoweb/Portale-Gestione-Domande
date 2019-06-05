@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Concorsi} from '../models';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Concorsi, Domanda} from '../models';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -15,5 +15,12 @@ export class JsonApiService {
   getListaConcorsi(): Observable<Concorsi[]> {
     return this.http.get<Concorsi[]>('http://localhost:8080/concorsi');
   }
+
+  getListaDomande(id: number): Observable<Domanda[]> {
+    return this.http.get<Domanda[]>('http://localhost:8080/domande/', {
+      params: new HttpParams().set('id', id.toString())
+    });
+  }
+
 
 }

@@ -1,22 +1,19 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort} from '@angular/material';
+import {Domanda} from '../../../../core/models';
 import {SelectionModel} from '@angular/cdk/collections';
-import {Concorsi} from '../../../../core/models';
+import {MatPaginator, MatSort} from '@angular/material';
 import {JsonApiService} from '../../../../core/services/json-api.service';
 import {Router} from '@angular/router';
 
-/**
- * @title Basic use of `<table mat-table>`
- */
 @Component({
-  selector: 'app-lista-concorsi',
-  templateUrl: './lista-concorsi.component.html',
-  styleUrls: ['./lista-concorsi.component.scss']
+  selector: 'app-lista-domande',
+  templateUrl: './lista-domande.component.html',
+  styleUrls: ['./lista-domande.component.scss']
 })
-export class ListaConcorsiComponent implements OnInit {
-  nomeColonne: string[] = ['id', 'nome', 'open'];
+export class ListaDomandeComponent implements OnInit {
+  nomeColonne: string[] = ['id', 'nominativo', 'dataNascita', 'dataProva', 'nomeProva', 'open'];
 
-  concorsi: Concorsi[];
+  domande: Domanda[];
 
   selection = new SelectionModel(true, []);
 
@@ -27,9 +24,10 @@ export class ListaConcorsiComponent implements OnInit {
 
 
   ngOnInit() {
-    this.api.getListaConcorsi().subscribe(
+    this.api.getListaDomande(1).subscribe(
       (val) => {
-        this.concorsi = val;
+        console.log(val);
+        this.domande = val;
       }
     );
   }

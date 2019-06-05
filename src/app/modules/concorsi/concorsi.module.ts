@@ -5,12 +5,14 @@ import { ListaConcorsiComponent } from './components/lista-concorsi/lista-concor
 import {CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptor} from '../../core/interceptors';
+import { ListaDomandeComponent } from './components/lista-domande/lista-domande.component';
 
 
 
 @NgModule({
   declarations: [
-  ListaConcorsiComponent],
+  ListaConcorsiComponent,
+  ListaDomandeComponent],
   imports: [
     SharedModule,
     ConcorsiRoutingModule,

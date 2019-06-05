@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {ListaConcorsiComponent} from './components/lista-concorsi/lista-concorsi.component';
+import {ListaDomandeComponent} from './components/lista-domande/lista-domande.component';
 
 export const routes: Routes = [
   {
@@ -9,6 +10,10 @@ export const routes: Routes = [
       {
         path: '',
         component: ListaConcorsiComponent,
+      },
+      {
+        path: ':id',
+        component: ListaDomandeComponent,
       },
     ]
   },

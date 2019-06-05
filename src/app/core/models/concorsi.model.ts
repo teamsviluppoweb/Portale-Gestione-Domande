@@ -3,3 +3,4 @@ export interface Concorsi {
   nome: string;
   numeroDomande: number;
 }
+
