@@ -5,7 +5,7 @@ import { ContentLayoutComponent } from './layouts/content-layout/content-layout.
 import {CONTENT_ROUTES} from './shared/routes/content-layout.routes';
 
 import {AuthLayoutComponent} from './layouts/auth-layout/auth-layout.component';
-import {NoAuthGuard} from './core/guards';
+import {AuthGuard} from './core/guards';
 
 
 
@@ -18,7 +18,7 @@ const routes: Routes = [
   {
     path: '',
     component: ContentLayoutComponent,
-    canActivate: [NoAuthGuard], // Should be replaced with actual auth guard
+    canActivate: [AuthGuard],
     children: CONTENT_ROUTES
   },
   {
