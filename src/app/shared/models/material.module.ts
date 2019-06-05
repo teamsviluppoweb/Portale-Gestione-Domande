@@ -55,6 +55,7 @@ import {LayoutModule} from '@angular/cdk/layout';
     MatPaginatorModule,
     MatTableModule,
     MatSortModule,
+    MatIconModule,
   ],
   exports: [
     MatButtonModule,
@@ -87,6 +88,7 @@ import {LayoutModule} from '@angular/cdk/layout';
     MatPaginatorModule,
     MatTableModule,
     MatSortModule,
+    MatIconModule,
   ]
 })
 export class MaterialModule { }

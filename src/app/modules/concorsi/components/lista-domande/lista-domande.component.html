@@ -1,5 +1,11 @@
 <div fxLayout="column">
 
+  <mat-form-field>
+    <label for="searchbar"></label>
+    <input matInput id="searchbar" placeholder="Cerca candidato per il suo identificativo" #input>
+    <mat-icon matPrefix>search</mat-icon>
+  </mat-form-field>
+
   <table fxFill
          mat-table [dataSource]="domande"
          matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
