@@ -12,15 +12,17 @@ export class AuthGuard implements CanActivate {
   canActivate(): Observable<any> | boolean {
     if (AuthService.haveJwt()) {
       return this.auth.validateJwt().pipe(
-        map( () => {
-          return true;
+        map( (response) => {
+          if (response.status === 200) {
+            return true;
+          }
         }),
         catchError((err: Response) => {
           if (err.status === 200) {
             return of(true);
-          } else {
-            return of(false);
           }
+
+          return of(false);
         }),
         first()
       );

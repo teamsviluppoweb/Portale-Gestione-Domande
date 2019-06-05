@@ -14,7 +14,7 @@ export class AuthService {
   }
 
   validateJwt() {
-    return this.http.get('http://localhost:8080/whoami');
+    return this.http.get('http://localhost:8080/whoami', {observe: 'response'});
   }
 
   logout() {
