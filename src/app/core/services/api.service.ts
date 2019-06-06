@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Concorsi, Domanda} from '../models';
+import {Concorso, Domanda} from '../models';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class ApiService {
 
   }
 
-  getListaConcorsi(): Observable<Concorsi[]> {
-    return this.http.get<Concorsi[]>('http://localhost:8080/concorsi');
+  getListaConcorsi(): Observable<Concorso[]> {
+    return this.http.get<Concorso[]>('http://localhost:8080/concorsi');
   }
 
   getListaDomandeConcorso(id: number): Observable<Domanda[]> {
@@ -22,8 +22,8 @@ export class ApiService {
     });
   }
 
-  getConcorsoById(id: number): Observable<Concorsi> {
-    return this.http.get<Concorsi>('http://localhost:8080/concorso/' + id );
+  getConcorsoById(id: number): Observable<Concorso> {
+    return this.http.get<Concorso>('http://localhost:8080/concorso/' + id );
   }
 
   cercaDomande(
@@ -32,8 +32,8 @@ export class ApiService {
 
     return this.http.get<Domanda[]>('http://localhost:8080/cerca/', {
       params: new HttpParams()
-        .set('id', idConcorso.toString())
-        .set('filter', keywords)
+        .set('idConcorso', idConcorso.toString())
+        .set('keywords', keywords)
         .set('sortOrder', sortOrder)
         .set('pageNumber', pageNumber.toString())
         .set('pageSize', pageSize.toString())

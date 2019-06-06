@@ -1,4 +1,4 @@
-export interface Concorsi {
+export interface Concorso {
   id: number;
   nome: string;
   numeroDomande: number;

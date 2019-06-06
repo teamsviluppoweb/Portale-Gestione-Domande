@@ -1,29 +1,30 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Concorsi, Domanda} from '../../../../core/models';
-import {SelectionModel} from '@angular/cdk/collections';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Concorso} from '../../../../core/models';
 import {MatPaginator, MatSort} from '@angular/material';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../../../core/services';
+import {ListaDomandeDatasource} from '../../../../core/services/lista-domande.datasource';
+import {fromEvent, merge} from 'rxjs';
+import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-lista-domande',
   templateUrl: './lista-domande.component.html',
   styleUrls: ['./lista-domande.component.scss']
 })
-export class ListaDomandeComponent implements OnInit {
+export class ListaDomandeComponent implements OnInit, AfterViewInit {
   nomeColonne: string[] = ['id', 'nominativo', 'dataNascita', 'dataProva', 'nomeProva', 'open'];
 
-  domande: Domanda[];
-  concorso: Concorsi;
+  dataSource: ListaDomandeDatasource;
+  concorso: Concorso; // Risultato del resolver esistenza concorso
 
-  selection = new SelectionModel(true, []);
 
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('input', { static: true }) input: ElementRef;
 
   constructor(private api: ApiService,
-              private route: ActivatedRoute,
-              private router: Router) {
+              private route: ActivatedRoute) {
 
   }
 
@@ -38,20 +39,45 @@ export class ListaDomandeComponent implements OnInit {
       }
     );
 
+    // Istanzio il datasource passandogli il service
+    this.dataSource = new ListaDomandeDatasource(this.api);
 
+    this.dataSource.cercaDomande(this.concorso.id, '', 'asc', 0, 3);
 
-    /*
-      this.api.getListaDomandeConcorso(1).subscribe(
-        (val) => {
-          console.log(val);
-          this.domande = val;
-        }
-      );
-     */
   }
 
+  ngAfterViewInit() {
 
-  GotoDomande(id) {
-    this.router.navigate(['/concorso', id]);
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+
+    // Triggero evento input nella searchbar
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+
+          this.CaricaPaginaDomande();
+        })
+      )
+      .subscribe();
+
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => this.CaricaPaginaDomande())
+      )
+      .subscribe();
+
   }
+
+  CaricaPaginaDomande() {
+    this.dataSource.cercaDomande(
+      this.concorso.id,
+      this.input.nativeElement.value,
+      this.sort.direction,
+      this.paginator.pageIndex,
+      this.paginator.pageSize);
+  }
+
 }

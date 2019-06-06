@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
-import {Concorsi} from '../../../../core/models';
+import {Concorso} from '../../../../core/models';
 import {ApiService} from '../../../../core/services';
 import {Router} from '@angular/router';
 
@@ -16,7 +16,7 @@ import {Router} from '@angular/router';
 export class ListaConcorsiComponent implements OnInit {
   nomeColonne: string[] = ['id', 'nome', 'open'];
 
-  concorsi: Concorsi[];
+  concorsi: Concorso[];
 
   selection = new SelectionModel(true, []);
 

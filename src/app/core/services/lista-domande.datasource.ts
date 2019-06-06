@@ -22,13 +22,13 @@ export class ListaDomandeDatasource implements DataSource<Domanda> {
 
   cercaDomande(idConcorso: number,
                keywords: string,
-               sortDirection: string,
+               sortOrder: string,
                pageIndex: number,
                pageSize: number) {
 
     this.loadingSubject.next(true);
 
-    this.apiService.cercaDomande(idConcorso, keywords, sortDirection,
+    this.apiService.cercaDomande(idConcorso, keywords, sortOrder,
       pageIndex, pageSize).pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
