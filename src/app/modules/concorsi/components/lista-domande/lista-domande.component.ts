@@ -23,16 +23,22 @@ export class ListaDomandeComponent implements OnInit {
 
   constructor(private api: JsonApiService,
               private route: ActivatedRoute,
-              private router: Router) {}
+              private router: Router) {
+
+  }
 
 
   ngOnInit() {
 
-    this.concorso = this.route.snapshot.data.concorso;
+    /* Se si resta sulla stessa pagina e si cambiano solo i parametri la pagina non viene ricaricata, dunque ngOnInit non viene triggerato,
+    * per ovviare a ciò resto in ascolto dei parametri che cambiano e chiamo la lista delle domande */
+    this.route.params.subscribe(
+      () => {
+        this.concorso = this.route.snapshot.data.concorso;
+      }
+    );
 
-    console.log('Ho risolto il concorso');
 
-    console.log(this.concorso);
 
     /*
       this.api.getListaDomandeConcorso(1).subscribe(
