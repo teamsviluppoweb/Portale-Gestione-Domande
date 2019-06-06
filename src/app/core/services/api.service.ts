@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Concorso, Domanda} from '../models';
 import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
 
   }
 
@@ -26,6 +27,10 @@ export class ApiService {
     return this.http.get<Concorso>('http://localhost:8080/concorso/' + id );
   }
 
+  getDomandaById(concorsoId: number, domandaId: number): Observable<Domanda> {
+    return this.http.get<Domanda>('http://localhost:8080/concorso/' + concorsoId + '/domanda/' + domandaId);
+  }
+
   cercaDomande(
     idConcorso: number, keywords = '', sortOrder = 'asc',
     pageNumber = 0, pageSize = 3): Observable<Domanda[]> {
@@ -38,6 +43,10 @@ export class ApiService {
         .set('pageNumber', pageNumber.toString())
         .set('pageSize', pageSize.toString())
     });
+  }
+
+  NotFound() {
+    this.router.navigate(['404']);
   }
 
 

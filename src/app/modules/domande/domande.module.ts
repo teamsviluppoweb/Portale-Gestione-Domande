@@ -3,6 +3,7 @@ import {SharedModule} from '../../shared/models/shared.module';
 import {DomandeRoutingModule} from './domande-routing.module';
 import { DomandaIlgComponent, DomandaIaComponent, LayoutSwitcherComponent } from './components';
 import {CommonModule} from '@angular/common';
+import {DomandaResolver} from '../../core/services';
 
 
 
@@ -16,6 +17,9 @@ import {CommonModule} from '@angular/common';
     SharedModule,
     DomandeRoutingModule,
     CommonModule
+  ],
+  providers: [
+    DomandaResolver
   ]
 })
 

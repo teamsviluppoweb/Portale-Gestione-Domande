@@ -3,11 +3,11 @@ import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/rou
 import {EMPTY, Observable} from 'rxjs';
 import {ApiService} from './api.service';
 import {Concorso} from '../models';
-import {catchError} from 'rxjs/operators';
+import {catchError, concatMap} from 'rxjs/operators';
 
 
 @Injectable()
-export class ConcorsoResolver implements Resolve<Concorso> {
+export class DomandaResolver implements Resolve<Concorso> {
 
   constructor(private service: ApiService) {
   }
@@ -18,14 +18,24 @@ export class ConcorsoResolver implements Resolve<Concorso> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
-    console.log('resolving', route.params.idConcorso);
+    console.log('resolving domanda', route.params.idConcorso);
     return this.service.getConcorsoById(route.params.idConcorso).pipe(
       catchError(
         () => {
           this.service.NotFound();
           return EMPTY;
         }
-      )
+      ),
+     concatMap( () => {
+       return this.service.getDomandaById(route.params.idConcorso, route.params.idDomanda).pipe(
+         catchError(
+           () => {
+             this.service.NotFound();
+             return EMPTY;
+           }
+         )
+       );
+     })
     );
 
   }
