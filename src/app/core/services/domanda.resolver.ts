@@ -18,7 +18,7 @@ export class DomandaResolver implements Resolve<Concorso> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
-    console.log('resolving domanda', route.params.idConcorso);
+    console.log('resolving domanda', route.params);
     return this.service.getConcorsoById(route.params.idConcorso).pipe(
       catchError(
         () => {
