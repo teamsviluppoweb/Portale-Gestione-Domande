@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {DomandaComponent} from './components/domanda/domanda.component';
+import {DomandaIlgComponent} from './components/domanda-ilg/domanda-ilg.component';
 
 export const routes: Routes = [
   {
@@ -8,7 +8,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: DomandaComponent,
+        component: DomandaIlgComponent,
       }
     ]
   },

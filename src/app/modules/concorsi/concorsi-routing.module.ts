@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {ListaConcorsiComponent} from './components/lista-concorsi/lista-concorsi.component';
 import {ConcorsoComponent} from './components/concorso/concorso.component';
 import {ConcorsoResolver} from '../../core/services';
+import {DOMANDE_ROUTES} from '../../shared/routes/content-layout.routes';
 
 export const routes: Routes = [
   {
@@ -15,15 +16,14 @@ export const routes: Routes = [
       {
         path: ':id',
         component: ConcorsoComponent,
+        children: DOMANDE_ROUTES,
         resolve: {
           concorso: ConcorsoResolver
-        },
-        children: [
-          {
-            path: 'domande/:id',
-            component: ListaConcorsiComponent,
-          },
-        ]
+        }
+      },
+      {
+        path: ':id/domanda',
+        children: DOMANDE_ROUTES,
       },
     ]
   },

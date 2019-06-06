@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import {SharedModule} from '../../shared/models/shared.module';
 import {DomandeRoutingModule} from './domande-routing.module';
-import { DomandaComponent } from './components/domanda/domanda.component';
+import { DomandaIlgComponent } from './components/domanda-ilg/domanda-ilg.component';
 
 
 
 @NgModule({
   declarations: [
-    DomandaComponent,
+    DomandaIlgComponent,
   ],
   imports: [
     SharedModule,
