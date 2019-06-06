@@ -7,7 +7,7 @@ export const routes: Routes = [
     path: ':idDomanda',
     component: LayoutSwitcherComponent,
     resolve: {
-      concorso: DomandaResolver
+      domanda: DomandaResolver
     }
   },
 ];

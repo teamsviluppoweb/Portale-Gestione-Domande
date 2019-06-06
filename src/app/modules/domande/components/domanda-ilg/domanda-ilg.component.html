@@ -1,3 +1,225 @@
-<h2>DOMANDA ILG</h2>
+<mat-card class="modulo">
+  <form [formGroup]="md">
 
-{{obj | json}}
+  <!-- Form anagrafica -->
+    <div>
+      <h3>Anagrafica</h3>
+      <div fxLayout="row wrap" fxLayout.sm="column" fxLayout.xs="column">
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="1 0 auto">
+          <mat-label>Nome</mat-label>
+          <label for="nome"></label>
+          <input id="nome" matInput readonly value="mario">
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="1 0 auto">
+          <mat-label>Cognome</mat-label>
+          <label for="cognome"></label>
+          <input id="cognome" matInput readonly value="Rossi">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="grow">
+          <mat-label>Codice Fiscale</mat-label>
+          <label for="cf"></label>
+          <input id="cf" matInput readonly value="XS293DSX203DS203">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="auto" fxFlex.sm="grow">
+          <mat-label>Data di Nascita</mat-label>
+          <label for="dataNascita"></label>
+          <input id="dataNascita" matInput readonly value="21/12/1839">
+        </mat-form-field>
+
+      </div>
+
+      <div fxLayout="row wrap" fxLayout.sm="column" fxLayout.xs="column">
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="grow">
+          <mat-label>Nato a</mat-label>
+          <label for="luogoNascita"></label>
+          <input id="luogoNascita" matInput readonly value="Roma">
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="grow">
+          <mat-label>Residenza</mat-label>
+          <label for="residenza"></label>
+          <input id="residenza" matInput readonly value="Roma">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="auto" fxFlex.sm="grow">
+          <mat-label>Via</mat-label>
+          <label for="via"></label>
+          <input id="via" matInput readonly value="Via dei cosimi 21">
+        </mat-form-field>
+
+      </div>
+
+      <div fxLayout="row wrap" fxLayout.xs="column">
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="1 0 auto">
+          <mat-label>Telefono</mat-label>
+          <label for="telefono"></label>
+          <input id="telefono" matInput readonly value="+39 3339993331">
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="1 0 auto">
+          <mat-label>Email</mat-label>
+          <label for="mail"></label>
+          <input id="mail" matInput readonly value="mario.rossi@gmail.com">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="grow">
+          <mat-label>Pec</mat-label>
+          <label for="pec"></label>
+          <input id="pec" matInput readonly value="pec@pecmail.it">
+        </mat-form-field>
+
+      </div>
+    </div>
+
+    <mat-divider [inset]="true"></mat-divider>
+
+    <!-- Form istruzione -->
+    <div formGroupName="fi">
+
+      <h3>Istruzione</h3>
+
+      <div fxLayout="row wrap" fxLayout.xs="column">
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="1 0 auto">
+          <mat-label>Istituto Frequentato</mat-label>
+          <label for="istitutoFrequentato"></label>
+          <input id="istitutoFrequentato" matInput readonly formControlName="istitutoFrequentato">
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="1 0 auto">
+          <mat-label>Tipo di diploma conseguito</mat-label>
+          <label for="tipoDiploma"></label>
+          <input id="tipoDiploma" formControlName="tipoDiploma" matInput readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="grow">
+          <mat-label>Anno conseguimento diploma</mat-label>
+          <label for="annoDiploma"></label>
+          <input id="annoDiploma" matInput readonly formControlName="annoDiploma">
+        </mat-form-field>
+
+      </div>
+
+      <div fxLayout="row wrap" fxLayout.xs="column">
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="1 0 auto">
+          <mat-label>Comune Istituto</mat-label>
+          <label>
+            <input matInput readonly formControlName="comuneIstituto">
+          </label>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="1 0 auto">
+          <mat-label>Provincia Istituto</mat-label>
+          <label>
+            <input matInput readonly formControlName="provinciaIstituto">
+
+          </label>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="grow">
+          <mat-label>Via</mat-label>
+          <label>
+            <input matInput readonly formControlName="viaIstituto">
+          </label>
+        </mat-form-field>
+
+      </div>
+    </div>
+
+    <mat-divider [inset]="true"></mat-divider>
+
+    <!-- Form lingua -->
+    <div formGroupName="fl">
+      <h3>Lingua straniera</h3>
+
+      <div fxLayout="row wrap" fxLayout.xs="column">
+
+        <mat-form-field appearance="outline" fxFlex="auto">
+          <mat-label>Lingua selezionata</mat-label>
+          <label>
+            <input matInput readonly formControlName="linguaSelezionata">
+          </label>
+        </mat-form-field>
+
+      </div>
+    </div>
+
+    <mat-divider [inset]="true"></mat-divider>
+
+    <div *ngIf="displayTitoli" formGroupName="tp">
+      <h3>Titoli Preferenziali</h3>
+
+      <ul *ngFor="let i of titoliSelezionati.value">
+        <li> {{i["Descrizione"]}} </li>
+      </ul>
+
+      <div *ngIf="aventeFigli" formGroupName="ft">
+        <p>Numero Figli Selezionati : {{this.numeroFigliSelezionati.value}}</p>
+      </div>
+
+    </div>
+
+    <mat-divider [inset]="true"></mat-divider>
+
+    <div *ngIf="displayRiserve" formGroupName="fr">
+      <h3>Riserve</h3>
+
+      <ul *ngFor="let i of riserveSelezionate.value">
+        <li> {{i["Descrizione"]}}
+          <br>
+        </li>
+      </ul>
+    </div>
+    <mat-divider [inset]="true"></mat-divider>
+
+    <div *ngIf="displayInvalidita" formGroupName="fc">
+      <h3>Categorie Protette</h3>
+
+      <div fxLayout="row wrap" fxLayout.xs="column">
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="1 0 auto">
+          <mat-label>Percentuale Invalidità</mat-label>
+          <label>
+            <input matInput readonly formControlName="percInvalidita">
+          </label>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="1 0 auto">
+          <mat-label>Data Certificazione</mat-label>
+          <label>
+            <input matInput readonly formControlName="dataCertificazione">
+          </label>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="24" fxFlex.sm="grow">
+          <mat-label>Rilasciato Da</mat-label>
+          <label>
+            <input matInput readonly formControlName="invaliditaEnte">
+          </label>
+        </mat-form-field>
+
+      </div>
+
+      <ul>
+        <li *ngIf="ausiliProva.value"> Dichiaro di avere diritto ad usufruire di ausili per lo svolgimento delle prove d'esame</li>
+        <li *ngIf="tempiAggiuntiviProva.value">   Dichiaro di avere diritto ad usufruire di eventuali tempi aggiuntivi</li>
+        <li *ngIf="esenzioneProvaSelettiva.value">   Dichiaro di avere diritto, in quanto affetto da invalità uguale o superiore all'80%, a non effettuare l'eventuale prova preselettiva</li>
+      </ul>
+
+    </div>
+  </form>
+
+</mat-card>
