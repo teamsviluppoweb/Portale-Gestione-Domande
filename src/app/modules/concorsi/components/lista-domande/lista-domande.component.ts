@@ -2,8 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Concorsi, Domanda} from '../../../../core/models';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatPaginator, MatSort} from '@angular/material';
-import {JsonApiService} from '../../../../core/services/json-api.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ApiService} from '../../../../core/services';
 
 @Component({
   selector: 'app-lista-domande',
@@ -21,7 +21,7 @@ export class ListaDomandeComponent implements OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(private api: JsonApiService,
+  constructor(private api: ApiService,
               private route: ActivatedRoute,
               private router: Router) {
 

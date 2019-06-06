@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {EMPTY, Observable} from 'rxjs';
-import {JsonApiService} from '../../core/services/json-api.service';
-import {Concorsi} from '../../core/models';
+import {ApiService} from './api.service';
+import {Concorsi} from '../models';
 import {catchError} from 'rxjs/operators';
 
 
 @Injectable()
 export class ConcorsoResolver implements Resolve<Concorsi> {
 
-  constructor(private service: JsonApiService) {
+  constructor(private service: ApiService) {
   }
 
   /*

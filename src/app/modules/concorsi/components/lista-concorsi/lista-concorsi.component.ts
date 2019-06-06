@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Concorsi} from '../../../../core/models';
-import {JsonApiService} from '../../../../core/services/json-api.service';
+import {ApiService} from '../../../../core/services';
 import {Router} from '@angular/router';
 
 /**
@@ -23,7 +23,7 @@ export class ListaConcorsiComponent implements OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(private api: JsonApiService, private router: Router) {}
+  constructor(private api: ApiService, private router: Router) {}
 
 
   ngOnInit() {
