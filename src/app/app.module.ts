@@ -8,6 +8,7 @@ import {CoreModule} from './core';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NavbarComponent} from './layouts/navbar/navbar.component';
+import { NotFoundComponent } from './layouts/not-found/not-found.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import {NavbarComponent} from './layouts/navbar/navbar.component';
     NavbarComponent,
     ContentLayoutComponent,
     AuthLayoutComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserAnimationsModule,

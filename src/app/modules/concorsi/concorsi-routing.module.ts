@@ -13,7 +13,7 @@ export const routes: Routes = [
         component: ListaConcorsiComponent,
       },
       {
-        path: ':id',
+        path: ':idConcorso',
         component: ConcorsoComponent,
         children: DOMANDE_ROUTES,
         resolve: {

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
 import {EMPTY, Observable} from 'rxjs';
 import {ApiService} from './api.service';
 import {Concorso} from '../models';
@@ -9,7 +9,7 @@ import {catchError} from 'rxjs/operators';
 @Injectable()
 export class ConcorsoResolver implements Resolve<Concorso> {
 
-  constructor(private service: ApiService) {
+  constructor(private service: ApiService, private router: Router) {
   }
 
   /*
@@ -18,10 +18,11 @@ export class ConcorsoResolver implements Resolve<Concorso> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
-    console.log('resolving', route.params.id);
-    return this.service.getConcorsoById(route.params.id).pipe(
+    console.log('resolving', route.params.idConcorso);
+    return this.service.getConcorsoById(route.params.idConcorso).pipe(
       catchError(
         () => {
+          this.router.navigate(['/']);
           return EMPTY;
         }
       )
