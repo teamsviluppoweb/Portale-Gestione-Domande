@@ -7,7 +7,7 @@ export class NoAuthGuard implements CanActivate {
   constructor() {}
 
   canActivate(): boolean {
-    return true;
+    return false;
   }
 
 }

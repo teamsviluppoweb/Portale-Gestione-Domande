@@ -1,16 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {DomandaIlgComponent} from './components/domanda-ilg/domanda-ilg.component';
-
+import {LayoutSwitcherComponent} from './components';
 export const routes: Routes = [
   {
-    path: '',
-    children: [
-      {
-        path: '',
-        component: DomandaIlgComponent,
-      }
-    ]
+    path: ':idDomanda',
+    component: LayoutSwitcherComponent,
   },
 ];
 
