@@ -9,10 +9,10 @@ import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-lista-domande',
-  templateUrl: './lista-domande.component.html',
-  styleUrls: ['./lista-domande.component.scss']
+  templateUrl: './concorso.component.html',
+  styleUrls: ['./concorso.component.scss']
 })
-export class ListaDomandeComponent implements OnInit, AfterViewInit {
+export class ConcorsoComponent implements OnInit, AfterViewInit {
   nomeColonne: string[] = ['id', 'nominativo', 'dataNascita', 'dataProva', 'nomeProva', 'open'];
 
   dataSource: ListaDomandeDatasource;

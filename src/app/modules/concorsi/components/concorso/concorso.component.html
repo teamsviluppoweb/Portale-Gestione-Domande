@@ -3,7 +3,6 @@
 <div fxLayout="column">
 
 
-
   <mat-form-field>
     <label for="searchbar"></label>
     <input matInput id="searchbar" placeholder="Cerca candidato per il suo identificativo" #input>
@@ -19,7 +18,7 @@
          mat-table [dataSource]="dataSource"
          matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
 
-    <!-- Colonna id domanda-->
+    <!-- Colonna id domande-->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>#</th>
       <td mat-cell *matCellDef="let row">{{row.DomandaConcorso.IdDomanda}}</td>
@@ -50,7 +49,7 @@
     </ng-container>
 
 
-    <!-- Colonna bottone apri singola domanda -->
+    <!-- Colonna bottone apri singola domande -->
     <ng-container matColumnDef="open">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row" >

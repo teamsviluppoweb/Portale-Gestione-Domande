@@ -36,6 +36,6 @@ export class ListaConcorsiComponent implements OnInit {
 
 
   GotoDomande(id) {
-    this.router.navigate(['/concorso', id]);
+    this.router.navigate(['/concorsi', id]);
   }
 }
