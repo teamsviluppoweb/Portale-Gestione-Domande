@@ -16,10 +16,14 @@ export class JsonApiService {
     return this.http.get<Concorsi[]>('http://localhost:8080/concorsi');
   }
 
-  getListaDomande(id: number): Observable<Domanda[]> {
-    return this.http.get<Domanda[]>('http://localhost:8080/domande/', {
+  getListaDomandeConcorso(id: number): Observable<Domanda[]> {
+    return this.http.get<Domanda[]>('http://localhost:8080/concorso', {
       params: new HttpParams().set('id', id.toString())
     });
+  }
+
+  getConcorsoById(id: number): Observable<Concorsi> {
+    return this.http.get<Concorsi>('http://localhost:8080/concorso/' + id );
   }
 
 

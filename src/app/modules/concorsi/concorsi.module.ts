@@ -6,6 +6,7 @@ import {CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptor} from '../../core/interceptors';
 import { ListaDomandeComponent } from './components/lista-domande/lista-domande.component';
+import {ConcorsoResolver} from './concorso.resolver';
 
 
 
@@ -19,6 +20,7 @@ import { ListaDomandeComponent } from './components/lista-domande/lista-domande.
     CommonModule,
   ],
   providers: [
+    ConcorsoResolver,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
   ]
 })
