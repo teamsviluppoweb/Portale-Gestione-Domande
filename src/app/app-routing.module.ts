@@ -6,6 +6,7 @@ import {CONTENT_ROUTES} from './shared/routes/content-layout.routes';
 
 import {AuthLayoutComponent} from './layouts/auth-layout/auth-layout.component';
 import {AuthGuard} from './core/guards';
+import {NotFoundComponent} from './layouts/not-found/not-found.component';
 
 
 
@@ -20,6 +21,10 @@ const routes: Routes = [
     component: ContentLayoutComponent,
     canActivate: [AuthGuard],
     children: CONTENT_ROUTES
+  },
+  {
+    path: '404',
+    component: NotFoundComponent,
   },
   {
     path: 'auth',

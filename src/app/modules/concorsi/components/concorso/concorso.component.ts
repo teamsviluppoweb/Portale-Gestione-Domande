@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Concorso} from '../../../../core/models';
 import {MatPaginator, MatSort} from '@angular/material';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../../../core/services';
 import {ListaDomandeDatasource} from '../../../../core/services/lista-domande.datasource';
 import {fromEvent, merge} from 'rxjs';
@@ -24,6 +24,7 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
   @ViewChild('input', { static: true }) input: ElementRef;
 
   constructor(private api: ApiService,
+              private router: Router,
               private route: ActivatedRoute) {
 
   }
@@ -78,6 +79,10 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
       this.sort.direction,
       this.paginator.pageIndex,
       this.paginator.pageSize);
+  }
+
+  GotoDomanda(id) {
+    return 'domanda/' + id;
   }
 
 }
