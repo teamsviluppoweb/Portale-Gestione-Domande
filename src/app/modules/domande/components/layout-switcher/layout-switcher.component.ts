@@ -4,12 +4,25 @@ import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-domanda-switcher',
   template: `
-    <ng-container [ngSwitch]="data">
-      <app-domanda-ilg *ngSwitchCase="1"></app-domanda-ilg>
-      <app-domanda-ia *ngSwitchCase="2"></app-domanda-ia>
-    </ng-container>    `
+    <json-schema-form
+      loadExternalAssets="true"
+      [(ngModel)]="exampleJsonObject">
+    </json-schema-form>
+  `
 })
 export class LayoutSwitcherComponent implements OnInit {
+
+  exampleJsonObject = {
+    first_name: 'Jane', last_name: 'Doe', age: 25, is_company: false,
+    address: {
+      street_1: '123 Main St.', street_2: null,
+      city: 'Las Vegas', state: 'NV', zip_code: '89123'
+    },
+    phone_numbers: [
+      { number: '702-123-4567', type: 'cell' },
+      { number: '702-987-6543', type: 'work' }
+    ], notes: ''
+  };
 
   data: object;
 
