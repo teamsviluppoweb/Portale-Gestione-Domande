@@ -3,7 +3,7 @@ import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/rou
 import {EMPTY, Observable} from 'rxjs';
 import {ApiService} from './api.service';
 import {Concorso} from '../models';
-import {catchError, concatMap} from 'rxjs/operators';
+import {catchError, concatMap, map} from 'rxjs/operators';
 
 
 @Injectable()
@@ -28,6 +28,10 @@ export class DomandaResolver implements Resolve<Concorso> {
       ),
      concatMap( () => {
        return this.service.getDomandaById(route.params.idConcorso, route.params.idDomanda).pipe(
+         map( (x) => {
+           console.log(x);
+           return x;
+         }),
          catchError(
            () => {
              this.service.NotFound();
