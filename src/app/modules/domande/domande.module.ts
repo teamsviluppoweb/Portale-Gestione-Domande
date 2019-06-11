@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
 import {SharedModule} from '../../shared/models/shared.module';
 import {DomandeRoutingModule} from './domande-routing.module';
-import { DomandaIlgComponent, DomandaIaComponent, LayoutSwitcherComponent } from './components';
 import {CommonModule} from '@angular/common';
 import {DomandaResolver} from '../../core/services';
 import {MaterialDesignFrameworkModule} from 'angular6-json-schema-form';
+import {JsonFormComponent} from './components';
 
 
 
 @NgModule({
   declarations: [
-    DomandaIlgComponent,
-    DomandaIaComponent,
-    LayoutSwitcherComponent,
+    JsonFormComponent,
   ],
   imports: [
     SharedModule,

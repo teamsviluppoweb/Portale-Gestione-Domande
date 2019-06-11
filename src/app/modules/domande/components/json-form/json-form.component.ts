@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Domanda} from '../../../../core/models';
 
 @Component({
-  selector: 'app-domanda-switcher',
+  // tslint:disable-next-line:component-selector
+  selector: 'jsonForm',
   template: `
     <json-schema-form
       loadExternalAssets="true"
-      [(ngModel)]="exampleJsonObject">
+      framework="material-design"
+      [(ngModel)]="domanda">
     </json-schema-form>
   `
 })
-export class LayoutSwitcherComponent implements OnInit {
+export class JsonFormComponent implements OnInit {
 
   exampleJsonObject = {
     first_name: 'Jane', last_name: 'Doe', age: 25, is_company: false,
@@ -24,12 +27,12 @@ export class LayoutSwitcherComponent implements OnInit {
     ], notes: ''
   };
 
-  data: object;
+  domanda: Domanda;
 
   constructor(private route: ActivatedRoute) {
     this.route.params.subscribe(
-      (data) => {
-        this.data = data.idConcorso;
+      () => {
+        this.domanda = this.route.snapshot.data.domanda.Anagrafica;
       }
     );
   }

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {LayoutSwitcherComponent} from './components';
 import {DomandaResolver} from '../../core/services';
+import {JsonFormComponent} from './components';
 export const routes: Routes = [
   {
     path: ':idDomanda',
-    component: LayoutSwitcherComponent,
+    component: JsonFormComponent,
     resolve: {
       domanda: DomandaResolver
     }
