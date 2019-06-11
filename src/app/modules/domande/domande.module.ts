@@ -4,6 +4,7 @@ import {DomandeRoutingModule} from './domande-routing.module';
 import { DomandaIlgComponent, DomandaIaComponent, LayoutSwitcherComponent } from './components';
 import {CommonModule} from '@angular/common';
 import {DomandaResolver} from '../../core/services';
+import {MaterialDesignFrameworkModule} from 'angular6-json-schema-form';
 
 
 
@@ -16,7 +17,8 @@ import {DomandaResolver} from '../../core/services';
   imports: [
     SharedModule,
     DomandeRoutingModule,
-    CommonModule
+    CommonModule,
+    MaterialDesignFrameworkModule
   ],
   providers: [
     DomandaResolver
