@@ -54,7 +54,7 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
     // Triggero evento input nella searchbar
     fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
-        debounceTime(150),
+        debounceTime(500),
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;
