@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import {Domanda} from '../models';
+import {HandleError, HttpErrorHandler} from './http-error-handler.service';
+import {catchError} from 'rxjs/operators';
 
 export const searchUrl = 'http://localhost:8080/cerca/';
 
@@ -32,10 +34,14 @@ function createHttpOptions( idConcorso: number, keywords = '', sortOrder = 'asc'
 
 @Injectable()
 export class ApplicationFormSearchService {
+  private handleError: HandleError;
 
   constructor(
     private http: HttpClient,
-) {}
+    httpErrorHandler: HttpErrorHandler
+) {
+    this.handleError = httpErrorHandler.createHandleError('ApplicationFormSearchService');
+  }
 
   cercaDomande(
     idConcorso: number, keywords = '', sortOrder = 'asc',
@@ -46,7 +52,9 @@ export class ApplicationFormSearchService {
 
     const options = createHttpOptions(idConcorso, keywords, sortOrder, pageNumber, pageSize, refresh);
 
-    return this.http.get<Domanda[]>(searchUrl, options);
+    return this.http.get<Domanda[]>(searchUrl, options).pipe(
+      catchError(this.handleError('search', []))
+    );
   }
 
 }

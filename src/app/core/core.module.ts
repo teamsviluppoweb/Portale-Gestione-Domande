@@ -4,7 +4,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthGuard, NoAuthGuard} from './guards';
 import {throwIfAlreadyLoaded} from './guards/module-import.guard';
 import {TokenInterceptor, CachingInterceptor, LoggingInterceptor} from './interceptors';
-import {RequestCache, RequestCacheWithMap, ConcorsoResolver , MessageService } from './services';
+import {RequestCache, RequestCacheWithMap, ConcorsoResolver, MessageService, HttpErrorHandler} from './services';
 
 
 @NgModule({
@@ -16,6 +16,7 @@ import {RequestCache, RequestCacheWithMap, ConcorsoResolver , MessageService } f
     NoAuthGuard,
     ConcorsoResolver,
     MessageService,
+    HttpErrorHandler,
     {
       provide: RequestCache,
       useClass: RequestCacheWithMap,
