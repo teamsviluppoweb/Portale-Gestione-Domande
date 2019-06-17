@@ -21,9 +21,7 @@ export class EsitoProvaComponent {
       () => {
         // Push, perchè material table vuole che il dato sia un array
         this.anagraficaDatasource.push(this.route.snapshot.data.domanda.Anagrafica);
-
         this.proveDatsource = this.route.snapshot.data.domanda.prove;
-
       }
     );
   }

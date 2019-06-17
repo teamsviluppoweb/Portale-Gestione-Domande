@@ -2,15 +2,16 @@ import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/
 import {Concorso} from '../../../../core/models';
 import {MatPaginator, MatSort} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ApiService} from '../../../../core/services';
-import {ListaDomandeDatasource} from '../../../../core/services/lista-domande.datasource';
+import {ListaDomandeDatasource, ApplicationFormSearchService} from '../../../../core/services';
 import {fromEvent, merge} from 'rxjs';
 import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-lista-domande',
   templateUrl: './concorso.component.html',
-  styleUrls: ['./concorso.component.scss']
+  styleUrls: ['./concorso.component.scss'],
+  providers: [ ApplicationFormSearchService ]
+
 })
 export class ConcorsoComponent implements OnInit, AfterViewInit {
   nomeColonne: string[] = ['id', 'nominativo', 'dataNascita', 'dataProva', 'nomeProva', 'open'];
@@ -23,7 +24,7 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('input', { static: true }) input: ElementRef;
 
-  constructor(private api: ApiService,
+  constructor(private api: ApplicationFormSearchService,
               private router: Router,
               private route: ActivatedRoute) {
 
