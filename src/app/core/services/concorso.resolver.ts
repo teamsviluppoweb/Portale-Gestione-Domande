@@ -13,12 +13,13 @@ export class ConcorsoResolver implements Resolve<Concorso> {
   }
 
   /*
-    Il resolver mi assicura che il concorso esista, se il concorso non esisto gli passo la costante EMPTY
+    Il resolver mi assicura che il concorso esista, facendo una chiamata http sul singolo concorso
+     se il concorso non esiste gli passo la costante EMPTY
   */
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
-    console.log('resolving', route.params.idConcorso);
+
     return this.service.getConcorsoById(route.params.idConcorso).pipe(
       catchError(
         () => {

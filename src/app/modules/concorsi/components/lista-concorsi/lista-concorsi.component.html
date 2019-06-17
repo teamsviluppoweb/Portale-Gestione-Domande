@@ -1,33 +1,36 @@
-<div fxLayout="column">
+<mat-card>
+  <div fxLayout="column">
 
-        <table fxFill
-               mat-table [dataSource]="concorsi"
-               matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+    <table fxFill
+           mat-table [dataSource]="concorsi"
+           matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
 
-          <!-- Colonna ID Concorso-->
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>#</th>
-            <td mat-cell *matCellDef="let row">{{row.id}}</td>
-          </ng-container>
+      <!-- Colonna ID Concorso-->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let row">{{row.id}}</td>
+      </ng-container>
 
-          <!-- Colonna Nome Concorso -->
-          <ng-container matColumnDef="nome">
-            <th mat-header-cell *matHeaderCellDef>Nome</th>
-            <td mat-cell *matCellDef="let row">{{row.nome}}</td>
-          </ng-container>
+      <!-- Colonna Nome Concorso -->
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let row">{{row.nome}}</td>
+      </ng-container>
 
-          <!-- Colonna Bottone Apri Concorso -->
-          <ng-container matColumnDef="open">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let row" >
-              <button  mat-flat-button (click)="GotoDomande(row.id)">VISUALIZZA</button>
-            </td>
-          </ng-container>
+      <!-- Colonna Bottone Apri Concorso -->
+      <ng-container matColumnDef="open">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row" >
+          <button  mat-flat-button (click)="GotoDomande(row.id)">VISUALIZZA</button>
+        </td>
+      </ng-container>
 
 
-          <tr mat-header-row *matHeaderRowDef="nomeColonne"></tr>
-          <tr mat-row *matRowDef="let row; columns: nomeColonne;"></tr>
-        </table>
+      <tr mat-header-row *matHeaderRowDef="nomeColonne"></tr>
+      <tr mat-row *matRowDef="let row; columns: nomeColonne;"></tr>
+    </table>
 
-      <mat-paginator [pageSize]="30"></mat-paginator>
-</div>
+    <mat-paginator [pageSize]="30"></mat-paginator>
+  </div>
+
+</mat-card>

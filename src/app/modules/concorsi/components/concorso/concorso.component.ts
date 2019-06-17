@@ -37,11 +37,14 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
     this.route.params.subscribe(
       () => {
         this.concorso = this.route.snapshot.data.concorso;
+        console.log('concorso', this.concorso);
       }
     );
 
     // Istanzio il datasource passandogli il service
     this.dataSource = new ListaDomandeDatasource(this.api);
+
+    console.log('concorso id', this.concorso.id);
 
     this.dataSource.cercaDomande(this.concorso.id, '', 'asc', 0, 3);
 

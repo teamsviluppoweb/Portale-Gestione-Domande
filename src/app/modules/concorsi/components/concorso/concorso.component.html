@@ -1,68 +1,71 @@
-<h2>CONCORSO: {{concorso.id}}</h2>
+<mat-card>
+  <h2>CONCORSO: {{concorso.id}}</h2>
 
-<div fxLayout="column">
-
-
-  <mat-form-field>
-    <label for="searchbar"></label>
-    <input matInput id="searchbar" placeholder="Cerca candidato per il suo identificativo" #input>
-    <mat-icon matPrefix>search</mat-icon>
-  </mat-form-field>
+  <div fxLayout="column">
 
 
-  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
-    <mat-spinner></mat-spinner>
+    <mat-form-field>
+      <label for="searchbar"></label>
+      <input matInput id="searchbar" placeholder="Cerca candidato per il suo identificativo" #input>
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+
+
+    <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <table fxFill
+           mat-table [dataSource]="dataSource"
+           matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+
+      <!-- Colonna id domande-->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let row">{{row.DomandaConcorso.IdDomanda}}</td>
+      </ng-container>
+
+      <!-- Colonna cognome nome canditato -->
+      <ng-container matColumnDef="nominativo">
+        <th mat-header-cell *matHeaderCellDef>Nominativo</th>
+        <td mat-cell *matCellDef="let row">{{row.Anagrafica.Cognome}} {{row.Anagrafica.Nome}}</td>
+      </ng-container>
+
+      <!-- Colonna data di nascita candidato -->
+      <ng-container matColumnDef="dataNascita">
+        <th mat-header-cell *matHeaderCellDef>Data di nascita</th>
+        <td mat-cell *matCellDef="let row">{{row.Anagrafica.DataNascita}}</td>
+      </ng-container>
+
+      <!-- Colonna data prova candidato -->
+      <ng-container matColumnDef="dataProva">
+        <th mat-header-cell *matHeaderCellDef>Data prova</th>
+        <td mat-cell *matCellDef="let row">{{row.prove[2].dataProva}}</td>
+      </ng-container>
+
+      <!-- Colonna nome ultima prova -->
+      <ng-container matColumnDef="nomeProva">
+        <th mat-header-cell *matHeaderCellDef>Data prova</th>
+        <td mat-cell *matCellDef="let row">{{row.prove[2].nomeProva}}</td>
+      </ng-container>
+
+
+      <!-- Colonna bottone apri singola domande -->
+      <ng-container matColumnDef="open">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row" >
+          <button [routerLink]="GotoDomanda(row.DomandaConcorso.IdDomanda)"  mat-flat-button>VISUALIZZA</button>
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="nomeColonne"></tr>
+      <tr mat-row *matRowDef="let row; columns: nomeColonne;"></tr>
+    </table>
+
+    <mat-paginator [length]="20" [pageSize]="3"
+                   [pageSizeOptions]="[3, 5, 10]"></mat-paginator>
+
   </div>
 
-  <table fxFill
-         mat-table [dataSource]="dataSource"
-         matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
-
-    <!-- Colonna id domande-->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>#</th>
-      <td mat-cell *matCellDef="let row">{{row.DomandaConcorso.IdDomanda}}</td>
-    </ng-container>
-
-    <!-- Colonna cognome nome canditato -->
-    <ng-container matColumnDef="nominativo">
-      <th mat-header-cell *matHeaderCellDef>Nominativo</th>
-      <td mat-cell *matCellDef="let row">{{row.Anagrafica.Cognome}} {{row.Anagrafica.Nome}}</td>
-    </ng-container>
-
-    <!-- Colonna data di nascita candidato -->
-    <ng-container matColumnDef="dataNascita">
-      <th mat-header-cell *matHeaderCellDef>Data di nascita</th>
-      <td mat-cell *matCellDef="let row">{{row.Anagrafica.DataNascita}}</td>
-    </ng-container>
-
-    <!-- Colonna data prova candidato -->
-    <ng-container matColumnDef="dataProva">
-      <th mat-header-cell *matHeaderCellDef>Data prova</th>
-      <td mat-cell *matCellDef="let row">{{row.prove[2].dataProva}}</td>
-    </ng-container>
-
-    <!-- Colonna nome ultima prova -->
-    <ng-container matColumnDef="nomeProva">
-      <th mat-header-cell *matHeaderCellDef>Data prova</th>
-      <td mat-cell *matCellDef="let row">{{row.prove[2].nomeProva}}</td>
-    </ng-container>
-
-
-    <!-- Colonna bottone apri singola domande -->
-    <ng-container matColumnDef="open">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let row" >
-        <button [routerLink]="GotoDomanda(row.DomandaConcorso.IdDomanda)"  mat-flat-button>VISUALIZZA</button>
-      </td>
-    </ng-container>
-
-
-    <tr mat-header-row *matHeaderRowDef="nomeColonne"></tr>
-    <tr mat-row *matRowDef="let row; columns: nomeColonne;"></tr>
-  </table>
-
-  <mat-paginator [length]="20" [pageSize]="3"
-                 [pageSizeOptions]="[3, 5, 10]"></mat-paginator>
-
-</div>
+</mat-card>
