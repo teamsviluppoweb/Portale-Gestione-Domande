@@ -1,6 +1,5 @@
 import { Component} from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
-import { ProveEntity} from '../../../../core/models';
 
 @Component({
   selector: 'app-esito-prova',
@@ -8,8 +7,6 @@ import { ProveEntity} from '../../../../core/models';
   styleUrls: ['./esito-prova.component.scss']
 })
 export class EsitoProvaComponent {
-
-  esiti: ProveEntity;
 
   anagraficaDatasource = [];
   anagraficaColonne: string[] = ['cognome', 'nome', 'luogoDiNascita', 'dataDiNascita'];
@@ -22,9 +19,11 @@ export class EsitoProvaComponent {
   constructor(private route: ActivatedRoute) {
     this.route.params.subscribe(
       () => {
-        this.esiti = this.route.snapshot.data.domanda;
         // Push, perchè material table vuole che il dato sia un array
         this.anagraficaDatasource.push(this.route.snapshot.data.domanda.Anagrafica);
+
+        this.proveDatsource = this.route.snapshot.data.domanda.prove;
+
       }
     );
   }
