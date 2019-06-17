@@ -3,7 +3,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {AuthGuard, NoAuthGuard} from './guards';
 import {throwIfAlreadyLoaded} from './guards/module-import.guard';
-import {TokenInterceptor, CachingInterceptor} from './interceptors';
+import {TokenInterceptor, CachingInterceptor, LoggingInterceptor} from './interceptors';
 import {RequestCache, RequestCacheWithMap, ConcorsoResolver , MessageService } from './services';
 
 
@@ -28,6 +28,11 @@ import {RequestCache, RequestCacheWithMap, ConcorsoResolver , MessageService } f
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoggingInterceptor,
       multi: true
     }
 
