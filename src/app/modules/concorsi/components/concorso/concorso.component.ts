@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/
 import {Concorso} from '../../../../core/models';
 import {MatPaginator, MatSort} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ListaDomandeDatasource, ApplicationFormSearchService} from '../../../../core/services';
+import {ListaDomandeDatasource, ApiService} from '../../../../core/services';
 import {fromEvent, merge} from 'rxjs';
 import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
 
@@ -10,11 +10,9 @@ import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
   selector: 'app-lista-domande',
   templateUrl: './concorso.component.html',
   styleUrls: ['./concorso.component.scss'],
-  providers: [ ApplicationFormSearchService ]
-
 })
 export class ConcorsoComponent implements OnInit, AfterViewInit {
-  nomeColonne: string[] = ['id', 'nominativo', 'dataNascita', 'dataProva', 'nomeProva', 'open'];
+  nomeColonne: string[] = [ 'checkbox', 'id', 'nominativo', 'dataNascita', 'dataProva', 'nomeProva', 'open'];
 
   dataSource: ListaDomandeDatasource;
   concorso: Concorso; // Risultato del resolver esistenza concorso
@@ -24,7 +22,7 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('input', { static: true }) input: ElementRef;
 
-  constructor(private api: ApplicationFormSearchService,
+  constructor(private api: ApiService,
               private router: Router,
               private route: ActivatedRoute) {
 

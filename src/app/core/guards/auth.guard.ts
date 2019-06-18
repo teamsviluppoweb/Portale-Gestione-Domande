@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from '../services';
 import {catchError, first, map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 
@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
     if (AuthService.haveJwt()) {
       return this.auth.validateJwt().pipe(
         map( (response) => {
-          if (response.status === 200) {
+          if (response['status'] === 200) {
             return true;
           }
         }),

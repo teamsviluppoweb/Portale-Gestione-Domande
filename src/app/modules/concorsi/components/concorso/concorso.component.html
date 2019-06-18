@@ -19,6 +19,12 @@
            mat-table [dataSource]="dataSource"
            matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
 
+      <!-- Colonna checkbox-->
+      <ng-container matColumnDef="checkbox">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let row"><mat-checkbox class="checkbox-color"></mat-checkbox></td>
+      </ng-container>
+
       <!-- Colonna id domande-->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>#</th>

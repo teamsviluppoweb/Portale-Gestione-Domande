@@ -3,7 +3,7 @@ import {DataSource} from '@angular/cdk/table';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {catchError, finalize} from 'rxjs/operators';
 import {CollectionViewer} from '@angular/cdk/collections';
-import {ApplicationFormSearchService} from './application-form-search.service';
+import {ApiService} from './api.service';
 
 
 export class ListaDomandeDatasource implements DataSource<Domanda> {
@@ -16,7 +16,7 @@ export class ListaDomandeDatasource implements DataSource<Domanda> {
 
   public loading$ = this.loadingSubject.asObservable();
 
-  constructor(private apiService: ApplicationFormSearchService) {
+  constructor(private apiService: ApiService) {
 
   }
 

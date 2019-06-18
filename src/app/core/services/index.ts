@@ -1,5 +1,4 @@
 export * from './api.service';
-export * from './application-form-search.service';
 export * from './auth.service';
 export * from './concorso.resolver';
 export * from './domanda.resolver';
