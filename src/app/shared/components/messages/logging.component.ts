@@ -9,5 +9,17 @@ import {MessageService} from '../../../core/services';
 
 })
 export class LoggingComponent {
+  token: string;
+  tokenView = false;
+  httpLogView = true;
+
   constructor(public messageService: MessageService) {}
+
+  setToken() {
+    localStorage.setItem('token', this.token);
+  }
+
+  removeToken() {
+    localStorage.removeItem('token');
+  }
 }

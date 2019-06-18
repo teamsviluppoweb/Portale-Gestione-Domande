@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {HandleError, HttpErrorHandler} from './http-error-handler.service';
-import {catchError, map} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
-  validateJwt() {
+  validateJwt(): Observable<any> {
     return this.http.get('http://localhost:8080/whoami', {observe: 'response'}).pipe(
       catchError(this.handleError('authentication', []))
     );

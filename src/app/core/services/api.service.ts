@@ -39,12 +39,14 @@ export class ApiService {
   private handleError: HandleError;
 
   constructor(private http: HttpClient, private router: Router, httpErrorHandler: HttpErrorHandler) {
-    this.handleError = httpErrorHandler.createHandleError('ApplicationFormSearchService');
+    this.handleError = httpErrorHandler.createHandleError('ApiService');
   }
 
 
-  getListaConcorsi(): Observable<Concorso[]> {
-    return this.http.get<Concorso[]>('http://localhost:8080/concorsi');
+  getListaConcorsi(): Observable<any[] | Concorso[]> {
+    return this.http.get<Concorso[]>('http://localhost:8080/concorsi').pipe(
+      catchError(this.handleError('getListaConcorsi', []))
+    );
   }
 
   getListaDomandeConcorso(id: number): Observable<Domanda[]> {
@@ -53,17 +55,21 @@ export class ApiService {
     });
   }
 
-  getConcorsoById(id: number): Observable<Concorso> {
-    return this.http.get<Concorso>('http://localhost:8080/concorso/' + id );
+  getConcorsoById(id: number): Observable<any[] | Concorso> {
+    return this.http.get<Concorso>('http://localhost:8080/concorso/' + id ).pipe(
+      catchError(this.handleError('getConcorsoById', []))
+    );
   }
 
-  getDomandaById(concorsoId: number, domandaId: number): Observable<Domanda> {
-    return this.http.get<Domanda>('http://localhost:8080/concorso/' + concorsoId + '/domanda/' + domandaId);
+  getDomandaById(concorsoId: number, domandaId: number): Observable< any[] | Domanda> {
+    return this.http.get<Domanda>('http://localhost:8080/concorso/' + concorsoId + '/domanda/' + domandaId).pipe(
+      catchError(this.handleError('getDomandaById', []))
+    );
   }
 
   cercaDomande(
     idConcorso: number, keywords = '', sortOrder = 'asc',
-    pageNumber = 0, pageSize = 3, refresh = false): Observable<Domanda[]> {
+    pageNumber = 0, pageSize = 3, refresh = false): Observable<any[] | Domanda[]> {
 
     // clear if no pkg name
     if (!keywords.trim()) { return of([]); }
@@ -71,7 +77,7 @@ export class ApiService {
     const options = createHttpOptions(idConcorso, keywords, sortOrder, pageNumber, pageSize, refresh);
 
     return this.http.get<Domanda[]>(searchUrl, options).pipe(
-      catchError(this.handleError('search', []))
+      catchError(this.handleError('cercaDomande', []))
     );
   }
 

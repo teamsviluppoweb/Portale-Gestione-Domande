@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
     if (AuthService.haveJwt()) {
       return this.auth.validateJwt().pipe(
         map( (response) => {
-          if (response['status'] === 200) {
+          if (response.status === 200) {
             return true;
           }
         }),

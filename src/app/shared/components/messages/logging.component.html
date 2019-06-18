@@ -7,8 +7,31 @@
     </svg>
   </div>
 
-  <div class="log-list">
-    <h3>Logging</h3>
+<div fxLayout="column">
+  <div fxLayout="row">
+    <mat-checkbox [(ngModel)]="tokenView">Token Setter</mat-checkbox>
+    &nbsp;
+    &nbsp;
+    <mat-checkbox [(ngModel)]="httpLogView">Http Logger</mat-checkbox>
+  </div>
+
+  <div *ngIf="tokenView">
+    <h4>Token Setter</h4>
+    <div>
+      <mat-form-field>
+        <label>
+          <input matInput placeholder="Token" [(ngModel)]="token" >
+        </label>
+      </mat-form-field>
+
+      <button  mat-flat-button color="primary" (click)="setToken()">Set Token</button>
+      <button  mat-flat-button color="warn" (click)="removeToken()">Remove Token</button>
+
+    </div>
+  </div>
+
+  <div class="log-list" *ngIf="httpLogView">
+    <h4>Http Logger</h4>
     <button mat-raised-button (click)="messageService.clear()">Clear</button>
     <br>
     <br>
@@ -16,5 +39,7 @@
       <a>{{i}}: {{message}}</a>
     </mat-list-item>
   </div>
-  
+
+</div>
+
 </div>
