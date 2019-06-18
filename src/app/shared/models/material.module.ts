@@ -21,6 +21,7 @@ import {MatPaginatorModule, MatSliderModule, MatSortModule, MatStepperModule, Ma
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [],
@@ -57,6 +58,7 @@ import {LayoutModule} from '@angular/cdk/layout';
     MatSortModule,
     MatIconModule,
     MatSidenavModule,
+    DragDropModule,
   ],
   exports: [
     MatButtonModule,
@@ -91,6 +93,7 @@ import {LayoutModule} from '@angular/cdk/layout';
     MatSortModule,
     MatIconModule,
     MatSidenavModule,
+    DragDropModule,
   ]
 })
 export class MaterialModule { }

@@ -1,8 +1,11 @@
-<div *ngIf="messageService.messages.length">
-  <h3>Logging</h3>
-  <button class="clear" (click)="messageService.clear()">clear</button>
-  <br>
-  <ol>
-    <li *ngFor='let message of messageService.messages'> {{message}} </li>
-  </ol>
+<div class="example-box" cdkDrag>
+     <div>
+       <h3>Logging</h3>
+       <button mat-raised-button (click)="messageService.clear()">Clear</button>
+       <br>
+       <br>
+       <mat-list-item *ngFor='let message of messageService.messages; let i = index'>
+         <a>{{i}}: {{message}}</a>
+       </mat-list-item>
+     </div>
 </div>
