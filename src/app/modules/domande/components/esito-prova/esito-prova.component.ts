@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import {PageTitleService} from '../../../../core/services/page-title.service';
 
@@ -7,7 +7,7 @@ import {PageTitleService} from '../../../../core/services/page-title.service';
   templateUrl: './esito-prova.component.html',
   styleUrls: ['./esito-prova.component.scss']
 })
-export class EsitoProvaComponent {
+export class EsitoProvaComponent implements OnInit {
 
   anagraficaDatasource = [];
   anagraficaColonne: string[] = ['cognome', 'nome', 'luogoDiNascita', 'dataDiNascita'];
@@ -19,7 +19,6 @@ export class EsitoProvaComponent {
 
   constructor(private route: ActivatedRoute, private pageTitleService: PageTitleService) {
 
-    this.pageTitleService.set('ESITI')
 
     this.route.params.subscribe(
       () => {
@@ -28,5 +27,9 @@ export class EsitoProvaComponent {
         this.proveDatsource = this.route.snapshot.data.domanda.prove;
       }
     );
+  }
+
+  ngOnInit(): void {
+    this.pageTitleService.set('ESITI');
   }
 }
