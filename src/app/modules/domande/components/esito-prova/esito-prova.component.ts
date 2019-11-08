@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
+import {PageTitleService} from '../../../../core/services/page-title.service';
 
 @Component({
   selector: 'app-esito-prova',
@@ -16,7 +17,10 @@ export class EsitoProvaComponent {
                             'dataInizioProva', 'durataProva', 'dataFineProva', 'protocolloDataProva', 'notaProva' ];
 
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private pageTitleService: PageTitleService) {
+
+    this.pageTitleService.set('ESITI')
+
     this.route.params.subscribe(
       () => {
         // Push, perchè material table vuole che il dato sia un array

@@ -6,6 +6,7 @@ import {ListaDomandeDatasource, ApiService} from '../../../../core/services';
 import {fromEvent, merge} from 'rxjs';
 import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
 import {SelectionModel} from '@angular/cdk/collections';
+import {PageTitleService} from '../../../../core/services/page-title.service';
 
 @Component({
   selector: 'app-lista-domande',
@@ -31,12 +32,15 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
 
   constructor(private api: ApiService,
               private router: Router,
+              private pageTitle: PageTitleService,
               private route: ActivatedRoute) {
 
   }
 
 
   ngOnInit() {
+
+    this.pageTitle.set('LISTA DOMANDE CONCORSO');
 
     /* Se si resta sulla stessa pagina e si cambiano solo i parametri la pagina non viene ricaricata, dunque ngOnInit non viene triggerato,
     * per ovviare a ciò resto in ascolto dei parametri che cambiano e chiamo la lista delle domande */

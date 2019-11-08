@@ -4,6 +4,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {Concorso} from '../../../../core/models';
 import {ApiService} from '../../../../core/services';
 import {Router} from '@angular/router';
+import {PageTitleService} from '../../../../core/services/page-title.service';
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -23,10 +24,14 @@ export class ListaConcorsiComponent implements OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(private api: ApiService, private router: Router,
+              private pageTitleService: PageTitleService) {}
 
 
   ngOnInit() {
+
+    this.pageTitleService.set('LISTA CONCORSI');
+
     this.api.getListaConcorsi().subscribe(
       (val) => {
         this.concorsi = val;
