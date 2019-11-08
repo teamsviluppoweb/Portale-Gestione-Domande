@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import {PageTitleService} from '../../../../core/services/page-title.service';
+import {MatDialog} from '@angular/material';
+import {DialogEsitiComponent} from './dialog-esiti/dialog-esiti.component';
 
 @Component({
   selector: 'app-esito-prova',
@@ -14,12 +16,12 @@ export class EsitoProvaComponent implements OnInit {
 
   proveDatsource = [];
   proveColonne: string[] = ['dataProva', 'tipoProva', 'sessioneProva', 'esitoProva', 'punteggioProva', 'allegatiProva',
-                            'dataInizioProva', 'durataProva', 'dataFineProva', 'protocolloDataProva', 'notaProva' ];
+                            'dataInizioProva', 'durataProva', 'dataFineProva', 'protocolloDataProva', 'notaProva', 'delete' ];
 
 
-  constructor(private route: ActivatedRoute, private pageTitleService: PageTitleService) {
-
-
+  constructor(private route: ActivatedRoute,
+              private pageTitleService: PageTitleService,
+              public dialog: MatDialog) {
     this.route.params.subscribe(
       () => {
         // Push, perchè material table vuole che il dato sia un array
@@ -32,4 +34,18 @@ export class EsitoProvaComponent implements OnInit {
   ngOnInit(): void {
     this.pageTitleService.set('ESITI');
   }
+
+
+  apriDialog(): void {
+    const dialogRef = this.dialog.open(DialogEsitiComponent, {
+      height: 'auto',
+      width: '1300px',
+      data: 'robert',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 }

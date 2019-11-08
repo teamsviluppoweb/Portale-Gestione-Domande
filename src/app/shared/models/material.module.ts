@@ -17,7 +17,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDividerModule } from '@angular/material/divider';
-import {MatPaginatorModule, MatSliderModule, MatSortModule, MatStepperModule, MatTableModule} from '@angular/material/';
+import {MatDialogModule, MatPaginatorModule, MatSliderModule, MatSortModule, MatStepperModule, MatTableModule} from '@angular/material/';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
@@ -59,6 +59,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatIconModule,
     MatSidenavModule,
     DragDropModule,
+    MatDialogModule,
   ],
   exports: [
     MatButtonModule,
@@ -94,6 +95,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatIconModule,
     MatSidenavModule,
     DragDropModule,
+    MatDialogModule,
   ]
 })
 export class MaterialModule { }

@@ -5,6 +5,7 @@ import {CommonModule} from '@angular/common';
 import {DomandaResolver} from '../../core/services';
 import {MaterialDesignFrameworkModule} from 'angular6-json-schema-form';
 import {JsonFormComponent, EsitoProvaComponent} from './components';
+import { DialogEsitiComponent } from './components/esito-prova/dialog-esiti/dialog-esiti.component';
 
 
 
@@ -12,6 +13,7 @@ import {JsonFormComponent, EsitoProvaComponent} from './components';
   declarations: [
     JsonFormComponent,
     EsitoProvaComponent,
+    DialogEsitiComponent
   ],
   imports: [
     SharedModule,
@@ -20,7 +22,10 @@ import {JsonFormComponent, EsitoProvaComponent} from './components';
     MaterialDesignFrameworkModule
   ],
   providers: [
-    DomandaResolver
+    DomandaResolver,
+  ],
+  entryComponents: [
+    DialogEsitiComponent
   ]
 })
 

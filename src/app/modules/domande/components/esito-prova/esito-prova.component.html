@@ -29,6 +29,8 @@
 
   <tr mat-header-row *matHeaderRowDef="anagraficaColonne"></tr>
   <tr mat-row *matRowDef="let row; columns: anagraficaColonne;"></tr>
+
+
 </table>
 </mat-card>
 
@@ -103,6 +105,16 @@
   <ng-container matColumnDef="notaProva">
     <th mat-header-cell *matHeaderCellDef>Nota</th>
     <td mat-cell *matCellDef="let row"></td>
+  </ng-container>
+
+  <!-- Colonna delete prova -->
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef>
+      <button type="button" mat-icon-button (click)="apriDialog()"><mat-icon>add</mat-icon></button>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <button type="button" mat-icon-button><mat-icon>delete</mat-icon></button>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="proveColonne"></tr>
