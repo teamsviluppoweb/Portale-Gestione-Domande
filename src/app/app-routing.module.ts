@@ -5,17 +5,12 @@ import { ContentLayoutComponent } from './layouts/content-layout/content-layout.
 import {CONTENT_ROUTES} from './shared/routes/content-layout.routes';
 
 import {AuthLayoutComponent} from './layouts/auth-layout/auth-layout.component';
-import {AuthGuard} from './core/guards';
+import {AuthGuard, GuestGuard} from './core/guards';
 import {NotFoundComponent} from './layouts/not-found/not-found.component';
 
 
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/auth/login',
-    pathMatch: 'full'
-  },
   {
     path: '',
     component: ContentLayoutComponent,

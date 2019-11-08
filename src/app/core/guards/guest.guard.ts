@@ -5,7 +5,7 @@ import {catchError, first, map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class GuestGuard implements CanActivate {
   private handleError: HandleError;
 
   constructor(private auth: AuthService, httpErrorHandler: HttpErrorHandler, private router: Router) {
@@ -17,17 +17,18 @@ export class AuthGuard implements CanActivate {
       return this.auth.validateJwt().pipe(
         map( (response) => {
           if (response.status === 200) {
-            return true;
+            this.router.navigate(['concorsi']);
+            return false;
           }
         }),
         catchError((err: Response) => {
           this.handleError('authentication');
           if (err.status === 200) {
-            return of(true);
+            this.router.navigate(['concorsi']);
+            return of(false);
           }
 
-          this.router.navigate(['auth/login']);
-          return of(false);
+          return of(true);
         }),
         first()
       );

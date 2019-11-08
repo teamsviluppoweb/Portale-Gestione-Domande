@@ -71,8 +71,8 @@ export class ApiService {
     idConcorso: number, keywords = '', sortOrder = 'asc',
     pageNumber = 0, pageSize = 3, refresh = false): Observable<any[] | Domanda[]> {
 
-    // clear if no pkg name
-    if (!keywords.trim()) { return of([]); }
+    // Ritorna un array vuoto se non c'è nessuna keywords
+    // if (!keywords.trim()) { return of([]); }
 
     const options = createHttpOptions(idConcorso, keywords, sortOrder, pageNumber, pageSize, refresh);
 

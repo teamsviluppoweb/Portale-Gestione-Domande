@@ -18,6 +18,7 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
   concorso: Concorso; // Risultato del resolver esistenza concorso
 
 
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('input', { static: true }) input: ElementRef;
@@ -42,14 +43,14 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
 
     // Istanzio il datasource passandogli il service
     this.dataSource = new ListaDomandeDatasource(this.api);
-
-    console.log('concorso id', this.concorso.id);
-
     this.dataSource.cercaDomande(this.concorso.id, '', 'asc', 0, 3);
+
 
   }
 
   ngAfterViewInit() {
+
+
 
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
