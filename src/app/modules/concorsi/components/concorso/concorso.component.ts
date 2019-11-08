@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ListaDomandeDatasource, ApiService} from '../../../../core/services';
 import {fromEvent, merge} from 'rxjs';
 import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
+import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-lista-domande',
@@ -12,6 +13,14 @@ import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
   styleUrls: ['./concorso.component.scss'],
 })
 export class ConcorsoComponent implements OnInit, AfterViewInit {
+
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('input', { static: true }) input: ElementRef;
+
+  selection = new SelectionModel<any>(true, []);
+
   nomeColonne: string[] = [ 'checkbox', 'id', 'nominativo', 'dataNascita', 'dataProva', 'nomeProva', 'open'];
 
   dataSource: ListaDomandeDatasource;
@@ -19,9 +28,6 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
 
 
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild('input', { static: true }) input: ElementRef;
 
   constructor(private api: ApiService,
               private router: Router,
@@ -86,6 +92,33 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
 
   GotoDomanda(id) {
     return 'domanda/' + id;
+  }
+
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.getDomandeArray().value.length;
+    console.log(this.dataSource.getDomandeArray().value.length);
+    return numSelected === numRows;
+
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.getDomandeArray().value.forEach(row => this.selection.select(row));
+    console.log(this.dataSource.getDomandeArray().value);
+  }
+
+
+  startToggle() {
+    if (this.selection.hasValue()) {
+      return true;
+    }
+    console.log(this.selection.hasValue());
+    return false;
   }
 
 }

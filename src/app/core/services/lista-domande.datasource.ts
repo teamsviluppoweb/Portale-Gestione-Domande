@@ -37,6 +37,10 @@ export class ListaDomandeDatasource implements DataSource<Domanda> {
 
   }
 
+  getDomandeArray() {
+    return this.domandeSubject;
+  }
+
   connect(collectionViewer: CollectionViewer): Observable<Domanda[]> {
     console.log('Connecting data source');
     return this.domandeSubject.asObservable();
