@@ -1,0 +1,97 @@
+<mat-dialog-content>
+
+  <form fxLayout="column" fxLayoutGap="10px">
+
+    <div fxLayout="row">
+      <mat-form-field appearance="outline" fxFlex="50">
+        <mat-label>DATA PROVA</mat-label>
+        <input matInput [matDatepicker]="dataProva" placeholder="Scegli la data della prova">
+        <mat-datepicker-toggle matSuffix [for]="dataProva"></mat-datepicker-toggle>
+        <mat-datepicker #dataProva></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>PUNTEGGIO</mat-label>
+        <input matInput placeholder="Input">
+      </mat-form-field>
+
+    </div>
+
+    <div fxLayout="column">
+      <mat-form-field appearance="outline">
+        <mat-label>ESITO PROVA</mat-label>
+        <mat-select>
+          <mat-option>
+            VINTA
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>TIPO PROVA</mat-label>
+        <mat-select>
+          <mat-option>
+            CORSA
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row">
+      <mat-form-field appearance="outline">
+        <mat-label>DATA INIZIO PROVA</mat-label>
+        <input matInput [matDatepicker]="dataInizio" placeholder="Scegli la data della prova">
+        <mat-datepicker-toggle matSuffix [for]="dataInizio"></mat-datepicker-toggle>
+        <mat-datepicker #dataInizio></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" >
+        <mat-label>DURATA PROVA</mat-label>
+        <input  matInput placeholder="Input"  >
+        <span matSuffix> giorni</span>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>DATA FINE </mat-label>
+        <input matInput placeholder="Input" readonly>
+      </mat-form-field>
+
+    </div>
+
+    <div fxLayout="row">
+      <mat-form-field fxFill appearance="outline">
+        <mat-label>NOTE &nbsp;&nbsp;</mat-label>
+        <textarea rows="4" matInput placeholder="Inserisci una nota"></textarea>
+        <mat-icon matPrefix>note</mat-icon>
+      </mat-form-field>
+    </div>
+
+
+    <div fxLayout="row">
+      <mat-form-field appearance="outline">
+        <mat-label>PROTOCOLLO NUMERO </mat-label>
+        <input matInput placeholder="Input">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>DATA PROTOCOLLO</mat-label>
+        <input matInput [matDatepicker]="dataProtocollo" placeholder="Scegli la data della prova">
+        <mat-datepicker-toggle matSuffix [for]="dataProtocollo"></mat-datepicker-toggle>
+        <mat-datepicker #dataProtocollo></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+
+
+
+
+
+
+
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>

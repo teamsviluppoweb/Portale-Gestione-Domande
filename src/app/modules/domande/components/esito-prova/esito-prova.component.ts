@@ -39,7 +39,7 @@ export class EsitoProvaComponent implements OnInit {
   apriDialog(): void {
     const dialogRef = this.dialog.open(DialogEsitiComponent, {
       height: 'auto',
-      width: '1300px',
+      width: 'auto',
       data: 'robert',
     });
 
