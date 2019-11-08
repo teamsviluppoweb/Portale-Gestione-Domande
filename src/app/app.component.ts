@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Portale-Gestione-Domande';
+
+  allowDebugInfo: boolean;
+
+  constructor() {
+    this.allowDebugInfo = false;
+  }
+
+  changeDebugInfo(){
+    this.allowDebugInfo = !this.allowDebugInfo;
+  }
+
+
 }
