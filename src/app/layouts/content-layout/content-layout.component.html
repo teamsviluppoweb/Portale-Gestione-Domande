@@ -1,14 +1,59 @@
-<mat-toolbar>
-  <p>Backoffice</p>
-</mat-toolbar>
-<mat-drawer-container>
-  <mat-drawer mode="side" opened>
-    <h4>MENU</h4>
-  </mat-drawer>
-  <mat-drawer-content>
-      <div class="container">
-          <router-outlet></router-outlet>
-      </div>
-  </mat-drawer-content>
-</mat-drawer-container>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="'side'"
+               [opened]="true"
+               [fixedInViewport]="true"
+               class="sidenav"
+  >
+    <div style="width: 100%; height: 100%; position: absolute;" (swipeleft)="closeDialog()" (click)="closeDialog()"></div>
+    <div>
 
+      <mat-toolbar  style="background-color: #ba1b21; color: white;cursor: pointer;">
+        <span class="spacer">BACKOFFICE</span>
+        <button type="button" mat-icon-button>
+          <mat-icon *ngIf="this.topbarDrawer.opened" (click)="CloseNavBar()">close</mat-icon>
+        </button>
+      </mat-toolbar>
+
+      <mat-nav-list>
+        <a [routerLink]="['/concorsi']" mat-list-item style="font-size: 14px">
+          <mat-icon style="padding-right: 1em;">info</mat-icon>
+          CONCORSI
+        </a>
+      </mat-nav-list>
+
+      <mat-divider style="margin: 10px"></mat-divider>
+
+    </div>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="toolbar" (swiperight)="closeDialog()">
+      <button
+        *ngIf="!this.topbarDrawer.opened"
+        (click)="drawer.toggle()"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        type="button">
+        <mat-icon  aria-label="Side nav toggle icon" style="color:white">
+          {{MenuIconState()}}
+        </mat-icon>
+      </button>
+      <h1 id="title"></h1>
+
+      <span class="spacer"></span>
+      <button mat-flat-button mat-button style="background-color: transparent; color: white;">ESCI
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+
+    </mat-toolbar>
+
+    <div class="container">
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

@@ -82,6 +82,7 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
   }
 
   CaricaPaginaDomande() {
+    console.log('pagesize', this.paginator.pageSize);
     this.dataSource.cercaDomande(
       this.concorso.id,
       this.input.nativeElement.value,
@@ -91,7 +92,7 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
   }
 
   GotoDomanda(id) {
-    return 'domanda/' + id;
+    return 'domanda/' + id + '/esito';
   }
 
 
@@ -99,7 +100,6 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.getDomandeArray().value.length;
-    console.log(this.dataSource.getDomandeArray().value.length);
     return numSelected === numRows;
 
   }

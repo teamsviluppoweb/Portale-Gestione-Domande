@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDrawer} from '@angular/material';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -8,10 +12,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContentLayoutComponent implements OnInit {
 
+  @ViewChild('drawer', { static: true }) topbarDrawer: MatDrawer;
 
-  constructor() { }
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+    );
+
+  constructor(private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit() {
+  }
+
+  MenuIconState() {
+    if (this.topbarDrawer.opened ) {
+      return 'close';
+    }
+    return 'menu';
+  }
+
+
+  closeDialog() {
+    this.topbarDrawer.toggle();
+  }
+
+  CloseNavBar() {
+    this.topbarDrawer.toggle();
   }
 
 }
