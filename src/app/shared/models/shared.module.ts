@@ -5,11 +5,13 @@ import {MaterialModule} from './material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {LoggingComponent} from '../components/messages/logging.component';
 import {CommonModule} from '@angular/common';
+import {DialogConfermaComponent} from '../components/dialog-conferma/dialog-conferma.component';
 
 
 @NgModule({
   declarations: [
-    LoggingComponent
+    LoggingComponent,
+    DialogConfermaComponent,
   ],
   imports: [
     CommonModule,
@@ -19,13 +21,18 @@ import {CommonModule} from '@angular/common';
     FlexLayoutModule,
     MaterialModule
   ],
+  entryComponents: [
+    DialogConfermaComponent,
+  ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
     FlexLayoutModule,
     MaterialModule,
-    LoggingComponent
-  ]
+    LoggingComponent,
+    DialogConfermaComponent
+  ],
+
 })
 export class SharedModule { }

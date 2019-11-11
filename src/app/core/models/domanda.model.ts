@@ -61,9 +61,11 @@ export interface ProveEntity {
   dataInizio: string;
   durata: string;
   dataFine: string;
-  protocolli?: (ProtocolliEntity)[] | null;
+  nuovaData: string;
+  protocolli?: (ProtocolliEntity)| null;
 }
 export interface ProtocolliEntity {
-  notaProtocollo: string;
-  dataProtocolla: string;
+  id: string;
+  nota: string;
+  data: string;
 }

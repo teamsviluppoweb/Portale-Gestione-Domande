@@ -25,6 +25,18 @@
 
       <mat-divider style="margin: 10px"></mat-divider>
 
+      <mat-nav-list *ngIf="checkMenu()">
+        <a [routerLink]="[gotoEsito]" mat-list-item style="font-size: 14px">
+          <mat-icon style="padding-right: 1em;">info</mat-icon>
+          ESITI PROVA
+        </a>
+        <a [routerLink]="[gotoDomanda]" mat-list-item style="font-size: 14px">
+          <mat-icon style="padding-right: 1em;">info</mat-icon>
+          VISUALIZZA DOMANDA
+        </a>
+      </mat-nav-list>
+
+
     </div>
 
   </mat-sidenav>

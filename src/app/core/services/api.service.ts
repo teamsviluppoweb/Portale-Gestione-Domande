@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Concorso, Domanda} from '../models';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {HandleError, HttpErrorHandler} from './http-error-handler.service';
 import {catchError} from 'rxjs/operators';
@@ -38,10 +38,25 @@ function createHttpOptions( idConcorso: number, keywords = '', sortOrder = 'asc'
 export class ApiService {
   private handleError: HandleError;
 
+  private menuDomanda = new Subject<any>();
+
+
   constructor(private http: HttpClient, private router: Router, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('ApiService');
   }
 
+
+  sendStato(data: boolean) {
+    this.menuDomanda.next(data);
+  }
+
+  clearStato() {
+    this.menuDomanda.next();
+  }
+
+  getMessage(): Observable<any> {
+    return this.menuDomanda.asObservable();
+  }
 
   getListaConcorsi(): Observable<any[] | Concorso[]> {
     return this.http.get<Concorso[]>('http://localhost:8080/concorsi').pipe(

@@ -9,6 +9,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NavbarComponent} from './layouts/navbar/navbar.component';
 import {NotFoundComponent} from './layouts/not-found/not-found.component';
+import {MAT_DATE_LOCALE} from '@angular/material';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import {NotFoundComponent} from './layouts/not-found/not-found.component';
     NavbarComponent,
     ContentLayoutComponent,
     AuthLayoutComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -33,7 +34,10 @@ import {NotFoundComponent} from './layouts/not-found/not-found.component';
     //  app
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'it-IT'},
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

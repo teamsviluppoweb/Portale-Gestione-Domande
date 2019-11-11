@@ -1,18 +1,18 @@
 <mat-dialog-content>
 
-  <form fxLayout="column" fxLayoutGap="10px">
+  <form fxLayout="column" fxLayoutGap="10px"  [formGroup]="form">
 
     <div fxLayout="row">
       <mat-form-field appearance="outline" fxFlex="50">
         <mat-label>DATA PROVA</mat-label>
-        <input matInput [matDatepicker]="dataProva" placeholder="Scegli la data della prova">
+        <input matInput [matDatepicker]="dataProva" placeholder="Scegli la data della prova" formControlName="dataProva">
         <mat-datepicker-toggle matSuffix [for]="dataProva"></mat-datepicker-toggle>
         <mat-datepicker #dataProva></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>PUNTEGGIO</mat-label>
-        <input matInput placeholder="Input">
+        <input matInput placeholder="Input" formControlName="punteggio">
       </mat-form-field>
 
     </div>
@@ -20,40 +20,43 @@
     <div fxLayout="column">
       <mat-form-field appearance="outline">
         <mat-label>ESITO PROVA</mat-label>
-        <mat-select>
-          <mat-option>
-            VINTA
+        <mat-select formControlName="esitoProva">
+          <mat-option *ngFor="let es of listEsiti" [value]="es">
+             {{es.descrizione}}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>TIPO PROVA</mat-label>
-        <mat-select>
-          <mat-option>
-            CORSA
+        <mat-select formControlName="tipoProva">
+          <mat-option *ngFor="let tp of listProve" [value]="tp">
+            {{tp.descrizione}}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
+  <div *ngIf="isAssente()">
     <div fxLayout="row">
       <mat-form-field appearance="outline">
-        <mat-label>DATA INIZIO PROVA</mat-label>
-        <input matInput [matDatepicker]="dataInizio" placeholder="Scegli la data della prova">
+        <mat-label>DATA INIZIO MALATTIA</mat-label>
+        <input matInput [matDatepicker]="dataInizio" placeholder="Scegli la data della prova" formControlName="dataInizio">
         <mat-datepicker-toggle matSuffix [for]="dataInizio"></mat-datepicker-toggle>
         <mat-datepicker #dataInizio></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="outline" >
-        <mat-label>DURATA PROVA</mat-label>
-        <input  matInput placeholder="Input"  >
+        <mat-label>GIORNI CERTIFICATO</mat-label>
+        <input  matInput placeholder="Input" formControlName="durata">
         <span matSuffix> giorni</span>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>DATA FINE </mat-label>
-        <input matInput placeholder="Input" readonly>
+        <mat-label>ASSENZA TOTALE </mat-label>
+        <input matInput [matDatepicker]="assenzaTotale" placeholder="Scegli la data della prova" formControlName="dataFine">
+        <mat-datepicker-toggle matSuffix [for]="assenzaTotale"></mat-datepicker-toggle>
+        <mat-datepicker #assenzaTotale></mat-datepicker>
       </mat-form-field>
 
     </div>
@@ -61,26 +64,36 @@
     <div fxLayout="row">
       <mat-form-field fxFill appearance="outline">
         <mat-label>NOTE &nbsp;&nbsp;</mat-label>
-        <textarea rows="4" matInput placeholder="Inserisci una nota"></textarea>
+        <textarea rows="4" matInput placeholder="Inserisci una nota" formControlName="note"></textarea>
         <mat-icon matPrefix>note</mat-icon>
       </mat-form-field>
     </div>
 
 
     <div fxLayout="row">
+
+      <mat-form-field appearance="outline">
+        <mat-label>NUOVA DATA</mat-label>
+        <input matInput [matDatepicker]="nuovaData" placeholder="Scegli la data della prova" formControlName="nuovaData">
+        <mat-datepicker-toggle matSuffix [for]="nuovaData"></mat-datepicker-toggle>
+        <mat-datepicker #nuovaData></mat-datepicker>
+      </mat-form-field>
+
+
       <mat-form-field appearance="outline">
         <mat-label>PROTOCOLLO NUMERO </mat-label>
-        <input matInput placeholder="Input">
+        <input matInput placeholder="Input" formControlName="idProtocollo">
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>DATA PROTOCOLLO</mat-label>
-        <input matInput [matDatepicker]="dataProtocollo" placeholder="Scegli la data della prova">
+        <input matInput [matDatepicker]="dataProtocollo" placeholder="Scegli la data della prova" formControlName="dataProtocollo">
         <mat-datepicker-toggle matSuffix [for]="dataProtocollo"></mat-datepicker-toggle>
         <mat-datepicker #dataProtocollo></mat-datepicker>
       </mat-form-field>
 
     </div>
+  </div>
 
 
 
@@ -93,5 +106,5 @@
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+  <button mat-button  [mat-dialog-close]="dataDialog" >Ok</button>
 </div>
