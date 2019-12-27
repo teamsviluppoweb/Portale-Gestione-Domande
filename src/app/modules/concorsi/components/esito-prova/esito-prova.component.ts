@@ -4,9 +4,9 @@ import {PageTitleService} from '../../../../core/services/page-title.service';
 import {MatDialog} from '@angular/material';
 import {DialogEsitiComponent} from './dialog-esiti/dialog-esiti.component';
 import {DialogNoteComponent} from './dialog-note/dialog-note.component';
-import {ProveEntity} from '../../../../core/models';
 import {DialogConfermaComponent} from '../../../../shared/components/dialog-conferma/dialog-conferma.component';
 import {ApiService} from '../../../../core/services';
+import {Esiti, RigheEsitiEntity} from '../../../../core/models/interfacesv2/interfacev2';
 
 // tslint:disable-next-line:class-name
 export interface provaDT {
@@ -16,10 +16,10 @@ export interface provaDT {
   nomeProva: string;
   punteggio: string;
   sessione: string;
-  dataInizio: string,
-  durata: string,
-  dataFine: string,
-  nuovaData: string,
+  dataInizio: string;
+  durata: string;
+  dataFine: string;
+  nuovaData: string;
   protocolli: [{
       id: string,
       nota: string,
@@ -35,25 +35,29 @@ export interface provaDT {
 })
 export class EsitoProvaComponent implements OnInit, OnDestroy{
 
-  anagraficaDatasource = [];
+  anagraficaDatasource = ['1'];
   anagraficaColonne: string[] = ['cognome', 'nome', 'luogoDiNascita', 'dataDiNascita'];
 
-  proveDatsource: ProveEntity[] = [];
+  proveDatsource: RigheEsitiEntity[] = [];
   proveColonne: string[] = ['dataProva', 'tipoProva', 'sessioneProva', 'esitoProva', 'punteggioProva', 'allegatiProva',
                             'dataInizioProva', 'durataProva', 'dataFineProva', 'protocolloDataProva', 'notaProva', 'delete' ];
 
   ids;
 
+  esitiRicevuti: Esiti;
+
   constructor(private route: ActivatedRoute,
               private pageTitleService: PageTitleService,
               private apiservice: ApiService,
               public dialog: MatDialog) {
+
+
     this.route.params.subscribe(
       (x) => {
-        this.ids = x;
-        // Push, perchè material table vuole che il dato sia un array
-        this.anagraficaDatasource.push(this.route.snapshot.data.domanda.Anagrafica);
-        this.proveDatsource = this.route.snapshot.data.domanda.prove;
+
+        this.esitiRicevuti = this.route.snapshot.data.esiti;
+        this.proveDatsource = this.esitiRicevuti.righeEsiti;
+        this.proveDatsource = this.proveDatsource.slice();
       }
     );
   }

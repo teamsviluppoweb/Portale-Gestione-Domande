@@ -1,12 +1,13 @@
-import {DomandaDinamica} from '../../modules/concorsi/components/domanda-candidato/domanda-candidato.component';
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
+import {EMPTY, Observable} from 'rxjs';
 import {ApiService} from './api.service';
-import {Observable} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
+import {Esiti} from '../models/interfacesv2/interfacev2';
+
 
 @Injectable()
-export class DomandaResolver implements Resolve<DomandaDinamica> {
+export class EsitoResolver implements Resolve<Esiti> {
 
   constructor(private service: ApiService) {
   }
@@ -16,9 +17,10 @@ export class DomandaResolver implements Resolve<DomandaDinamica> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
 
-    return this.service.getDomanda(route.params.url, route.params.cf).pipe(
+    return this.service.getEsiti(route.params.url, route.params.cf).pipe(
       tap(x => console.log(x)),
-    );
+    )
+    ;
 
   }
 

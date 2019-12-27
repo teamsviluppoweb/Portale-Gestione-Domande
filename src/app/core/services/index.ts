@@ -1,6 +1,6 @@
 export * from './api.service';
 export * from './auth.service';
-export * from './concorso.resolver';
+export * from './esito-resolver.service';
 export * from './domanda.resolver';
 export * from './domandaLayout.resolver';
 export * from './lista-domande.datasource';

@@ -1,14 +1,34 @@
-<mat-card>
+<mat-card class="search-mat-card mat-elevation-z8" >
+  <div fxLayout="column" class="search-container">
+
+    <div fxLayout="row" >
+
+      <mat-form-field appearance="outline" fxFlex="40">
+        <input matInput placeholder="Cerca per codice fiscale" #cfSearchbar>
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex="40">
+        <input matInput placeholder="Cerca per cognome" #cognomeSearchbar>
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row">
+      <mat-form-field appearance="outline" fxFlex="40">
+        <input matInput placeholder="Cerca per nome" #nomeSearchbar>
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex="40">
+        <input matInput placeholder="Cerca per id domanda" #idSearchBar>
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+  </div>
+</mat-card>
+
+<mat-card class="mat-elevation-z8">
   <div fxLayout="column">
-
-
-    <mat-form-field>
-      <label for="searchbar"></label>
-      <input matInput id="searchbar" placeholder="Cerca candidato per il suo identificativo" #input>
-      <mat-icon matSuffix style="cursor: pointer;">tune</mat-icon>
-      <mat-hint>Cerca il canditato in base al suo nome e cognome </mat-hint>
-      <mat-icon matPrefix>search</mat-icon>
-    </mat-form-field>
 
 
     <div class="spinner-container" *ngIf="dataSource.loading$ | async">
@@ -30,7 +50,7 @@
 
         <mat-menu #menu="matMenu" >
 
-          <button mat-menu-item (click)="masterToggle()">
+          <button mat-menu-item>
             <span>TUTTI</span>
           </button>
 
@@ -69,32 +89,32 @@
 
       <!-- Colonna id domande-->
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>#</th>
-        <td mat-cell *matCellDef="let row">{{row.DomandaConcorso.IdDomanda}}</td>
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let row">{{row.idDomanda}}</td>
       </ng-container>
 
       <!-- Colonna cognome nome canditato -->
       <ng-container matColumnDef="nominativo">
         <th mat-header-cell *matHeaderCellDef>Nominativo</th>
-        <td mat-cell *matCellDef="let row">{{row.Anagrafica.Cognome}} {{row.Anagrafica.Nome}}</td>
+        <td mat-cell *matCellDef="let row">{{row.cognome}} {{row.nome}}</td>
       </ng-container>
 
       <!-- Colonna data di nascita candidato -->
       <ng-container matColumnDef="dataNascita">
         <th mat-header-cell *matHeaderCellDef>Data di nascita</th>
-        <td mat-cell *matCellDef="let row">{{row.Anagrafica.DataNascita}}</td>
+        <td mat-cell *matCellDef="let row">{{row.codiceFiscale}}</td>
       </ng-container>
 
       <!-- Colonna data prova candidato -->
       <ng-container matColumnDef="dataProva">
         <th mat-header-cell *matHeaderCellDef>Data prova</th>
-        <td mat-cell *matCellDef="let row">{{row.prove[2].dataProva}}</td>
+        <td mat-cell *matCellDef="let row"></td>
       </ng-container>
 
       <!-- Colonna nome ultima prova -->
       <ng-container matColumnDef="nomeProva">
         <th mat-header-cell *matHeaderCellDef>Data prova</th>
-        <td mat-cell *matCellDef="let row">{{row.prove[2].nomeProva}}</td>
+        <td mat-cell *matCellDef="let row"></td>
       </ng-container>
 
 
@@ -102,7 +122,7 @@
       <ng-container matColumnDef="open">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row" >
-          <button [routerLink]="GotoDomanda(row.DomandaConcorso.IdDomanda)"  mat-flat-button>VISUALIZZA</button>
+          <button [routerLink]="GotoDomanda(row)"  mat-flat-button>VISUALIZZA</button>
         </td>
       </ng-container>
 
@@ -111,8 +131,8 @@
       <tr mat-row *matRowDef="let row; columns: nomeColonne;"></tr>
     </table>
 
-    <mat-paginator [length]="10" [pageSize]="3"
-                   [pageSizeOptions]="[3]"></mat-paginator>
+    <mat-paginator [length]="dataSource.numeroRisultati" [pageSize]="3"
+                   [pageSizeOptions]="[5,10,15,20,50,100]"></mat-paginator>
 
   </div>
 

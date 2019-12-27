@@ -5,6 +5,7 @@ import {Concorso} from '../../../../core/models';
 import {ApiService} from '../../../../core/services';
 import {Router} from '@angular/router';
 import {PageTitleService} from '../../../../core/services/page-title.service';
+import {ListaConcorsi} from '../../../../core/models/interfacesv2/interfacev2';
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -15,9 +16,9 @@ import {PageTitleService} from '../../../../core/services/page-title.service';
   styleUrls: ['./lista-concorsi.component.scss']
 })
 export class ListaConcorsiComponent implements OnInit {
-  nomeColonne: string[] = ['id', 'nome', 'open'];
+  nomeColonne: string[] = ['nome', 'open'];
 
-  concorsi: Concorso[];
+  listaConcorsi: ListaConcorsi[] = [];
 
   selection = new SelectionModel(true, []);
 
@@ -33,14 +34,16 @@ export class ListaConcorsiComponent implements OnInit {
     this.pageTitleService.set('LISTA CONCORSI');
 
     this.api.getListaConcorsi().subscribe(
-      (val) => {
-        this.concorsi = val;
+      (val: ListaConcorsi[]) => {
+        this.listaConcorsi = [];
+        this.listaConcorsi = val;
       }
     );
   }
 
 
-  GotoDomande(id) {
-    this.router.navigate(['/concorsi', id]);
+  GotoDomande(id: ListaConcorsi) {
+    console.log(id);
+    this.router.navigate(['/concorsi/domande', encodeURI(id.nomeConcorso), encodeURI(id.urlConcorso)]);
   }
 }

@@ -3,6 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  endpoint : {
+    listaConcorsi: 'http://webpc.dipvvf.it:6020/listaConcorsi',
+  },
   production: false
 };
 

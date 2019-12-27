@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
-import {CONTENT_ROUTES} from './shared/routes/content-layout.routes';
 
 import {AuthLayoutComponent} from './layouts/auth-layout/auth-layout.component';
 import {AuthGuard, GuestGuard} from './core/guards';
@@ -13,9 +12,14 @@ import {NotFoundComponent} from './layouts/not-found/not-found.component';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'concorsi',
+    pathMatch: 'full',
+  },
+  {
+    path: 'concorsi',
     component: ContentLayoutComponent,
     canActivate: [AuthGuard],
-    children: CONTENT_ROUTES
+    loadChildren: () => import('src/app/modules/concorsi/concorsi.module').then(m => m.ConcorsiModule)
   },
   {
     path: '404',

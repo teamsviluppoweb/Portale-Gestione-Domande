@@ -4,7 +4,10 @@ import {Concorso, Domanda} from '../models';
 import {Observable, of, Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {HandleError, HttpErrorHandler} from './http-error-handler.service';
-import {catchError} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
+import {DomandeEntity, Esiti, ListaConcorsi, ListaDomande, RisultatiRicercaDomanda} from '../models/interfacesv2/interfacev2';
+import {DomandaDinamica} from '../../modules/concorsi/components/domanda-candidato/domanda-candidato.component';
 
 
 export const searchUrl = 'http://localhost:8080/cerca/';
@@ -18,19 +21,33 @@ const httpOptions = {
 };
 */
 
-function createHttpOptions( idConcorso: number, keywords = '', sortOrder = 'asc',
-                            pageNumber = 0, pageSize = 3, refresh = false) {
-  const params = new HttpParams()
-    .set('idConcorso', idConcorso.toString())
-    .set('keywords', keywords)
-    .set('sortOrder', sortOrder)
-    .set('pageNumber', pageNumber.toString())
-    .set('pageNumber', pageNumber.toString())
-    .set('pageSize', pageSize.toString());
+function createHttpOptions( pageSize, numeroPagina, cf = '', cognome = '', nome = '', id = '') {
+  let params = new HttpParams()
+    .set('pageSize', pageSize.toString())
+    .set('numeroPagina', numeroPagina.toString());
 
-  const headerMap = refresh ? {'x-refresh': 'true'} : {};
-  const headers = new HttpHeaders(headerMap) ;
-  return { headers, params };
+  if (cf !== '') {
+    console.log(cf);
+    params = params.append( 'codiceFiscale', cf.toString());
+  }
+
+  if (cognome !== '') {
+    console.log(cf);
+    params = params.append( 'cognome', cognome.toString());
+  }
+
+  if (nome !== '') {
+    console.log(cf);
+    params = params.append( 'nome', nome.toString());
+  }
+
+  if (id !== '') {
+    console.log(cf);
+    params = params.append( 'idDomanda', id.toString());
+  }
+
+
+  return { params };
 }
 @Injectable({
   providedIn: 'root'
@@ -58,9 +75,9 @@ export class ApiService {
     return this.menuDomanda.asObservable();
   }
 
-  getListaConcorsi(): Observable<any[] | Concorso[]> {
-    return this.http.get<Concorso[]>('http://localhost:8080/concorsi').pipe(
-      catchError(this.handleError('getListaConcorsi', []))
+  getListaConcorsi(): Observable<ListaConcorsi[]> {
+    return this.http.get<ListaConcorsi[]>(environment.endpoint.listaConcorsi).pipe(
+      tap((x) => console.log(x))
     );
   }
 
@@ -70,29 +87,36 @@ export class ApiService {
     });
   }
 
-  getConcorsoById(id: number): Observable<any[] | Concorso> {
-    return this.http.get<Concorso>('http://localhost:8080/concorso/' + id ).pipe(
-      catchError(this.handleError('getConcorsoById', []))
+  getConcorsoById(url: string): Observable<ListaDomande> {
+    return this.http.get<ListaDomande>(url + '/getDomande' ).pipe(
+      tap(x => console.log(x))
     );
   }
 
-  getDomandaById(concorsoId: number, domandaId: number): Observable< any[] | Domanda> {
-    return this.http.get<Domanda>('http://localhost:8080/concorso/' + concorsoId + '/domanda/' + domandaId).pipe(
-      catchError(this.handleError('getDomandaById', []))
+  getDomanda(url: string, cf: string): Observable<DomandaDinamica> {
+    return this.http.get<DomandaDinamica>(url + '/' + 'VisualizzaDomanda/' + cf).pipe(
+      tap(x => console.log(x))
+    );
+  }
+
+  getEsiti(url: string, cf: string): Observable<Esiti> {
+    return this.http.get<Esiti>(url + '/' + 'VisualizzaEsiti/' + cf).pipe(
+      tap(x => console.log(x))
     );
   }
 
   cercaDomande(
-    idConcorso: number, keywords = '', sortOrder = 'asc',
-    pageNumber = 0, pageSize = 3, refresh = false): Observable<any[] | Domanda[]> {
+    url: string, pageSize = 1, numeroPagina = 1, cf, cognome, nome, id): Observable<any[] | RisultatiRicercaDomanda> {
+
+    console.log(cf);
 
     // Ritorna un array vuoto se non c'è nessuna keywords
     // if (!keywords.trim()) { return of([]); }
 
-    const options = createHttpOptions(idConcorso, keywords, sortOrder, pageNumber, pageSize, refresh);
+    const options = createHttpOptions(pageSize, numeroPagina, cf, cognome, nome, id);
 
-    return this.http.get<Domanda[]>(searchUrl, options).pipe(
-      catchError(this.handleError('cercaDomande', []))
+    return this.http.get<RisultatiRicercaDomanda>(url + '/getDomande', options).pipe(
+      tap(x => console.log(x)),
     );
   }
 

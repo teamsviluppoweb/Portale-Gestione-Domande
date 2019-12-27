@@ -2,26 +2,20 @@
   <div fxLayout="column">
 
     <table fxFill
-           mat-table [dataSource]="concorsi"
+           mat-table [dataSource]="listaConcorsi"
            matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
-
-      <!-- Colonna ID Concorso-->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>#</th>
-        <td mat-cell *matCellDef="let row">{{row.id}}</td>
-      </ng-container>
 
       <!-- Colonna Nome Concorso -->
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef>Nome</th>
-        <td mat-cell *matCellDef="let row">{{row.nome}}</td>
+        <td mat-cell *matCellDef="let row">{{row.nomeConcorso}}</td>
       </ng-container>
 
       <!-- Colonna Bottone Apri Concorso -->
       <ng-container matColumnDef="open">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row" >
-          <button  mat-flat-button (click)="GotoDomande(row.id)">VISUALIZZA</button>
+          <button  mat-flat-button (click)="GotoDomande(row)">VISUALIZZA</button>
         </td>
       </ng-container>
 

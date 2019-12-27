@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Concorso} from '../../../../core/models';
 import {MatPaginator, MatSort} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ListaDomandeDatasource, ApiService} from '../../../../core/services';
@@ -7,6 +6,12 @@ import {fromEvent, merge} from 'rxjs';
 import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
 import {SelectionModel} from '@angular/cdk/collections';
 import {PageTitleService} from '../../../../core/services/page-title.service';
+import {ListaDomande} from '../../../../core/models/interfacesv2/interfacev2';
+
+export interface ConcorsoFromRoute {
+  nome: string;
+  url: string;
+}
 
 @Component({
   selector: 'app-lista-domande',
@@ -18,14 +23,19 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild('input', { static: true }) input: ElementRef;
+
+  @ViewChild('cfSearchbar', { static: true }) cfSearchbar: ElementRef;
+  @ViewChild('cognomeSearchbar', { static: true }) cognomeSearchbar: ElementRef;
+  @ViewChild('nomeSearchbar', { static: true }) nomeSearchbar: ElementRef;
+  @ViewChild('idSearchBar', { static: true }) idSearchBar: ElementRef;
 
   selection = new SelectionModel<any>(true, []);
 
   nomeColonne: string[] = [ 'checkbox', 'id', 'nominativo', 'dataNascita', 'dataProva', 'nomeProva', 'open'];
 
   dataSource: ListaDomandeDatasource;
-  concorso: Concorso; // Risultato del resolver esistenza concorso
+  concorso: ConcorsoFromRoute;
+
 
 
 
@@ -39,21 +49,30 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
+    this.paginator.pageIndex = 0;
+
+    this.dataSource = new ListaDomandeDatasource(this.api);
 
     this.pageTitle.set('LISTA DOMANDE CONCORSO');
 
     /* Se si resta sulla stessa pagina e si cambiano solo i parametri la pagina non viene ricaricata, dunque ngOnInit non viene triggerato,
     * per ovviare a ciò resto in ascolto dei parametri che cambiano e chiamo la lista delle domande */
     this.route.params.subscribe(
-      () => {
-        this.concorso = this.route.snapshot.data.concorso;
-        console.log('concorso', this.concorso);
+      (x) => {
+
+        this.concorso = {
+          nome: x.nome,
+          url: x.url
+        };
+
+        console.log(this.concorso);
       }
     );
 
+    this.paginator.pageSize = 10;
+
     // Istanzio il datasource passandogli il service
-    this.dataSource = new ListaDomandeDatasource(this.api);
-    this.dataSource.cercaDomande(this.concorso.id, '', 'asc', 0, 3);
+    this.dataSource.cercaDomande(this.concorso.url, this.paginator.pageSize,  1);
 
 
   }
@@ -62,10 +81,68 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
 
 
 
+
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
     // Triggero evento input nella searchbar
-    fromEvent(this.input.nativeElement, 'keyup')
+    fromEvent(this.cfSearchbar.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+
+          this.CaricaPaginaDomande();
+        })
+      )
+      .subscribe();
+
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => this.CaricaPaginaDomande())
+      )
+      .subscribe();
+
+
+
+    fromEvent(this.cognomeSearchbar.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+
+          this.CaricaPaginaDomande();
+        })
+      )
+      .subscribe();
+
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => this.CaricaPaginaDomande())
+      )
+      .subscribe();
+
+
+    fromEvent(this.nomeSearchbar.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+
+          this.CaricaPaginaDomande();
+        })
+      )
+      .subscribe();
+
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => this.CaricaPaginaDomande())
+      )
+      .subscribe();
+
+    fromEvent(this.idSearchBar.nativeElement, 'keyup')
       .pipe(
         debounceTime(500),
         distinctUntilChanged(),
@@ -85,18 +162,25 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
 
   }
 
+
+
   CaricaPaginaDomande() {
-    console.log('pagesize', this.paginator.pageSize);
     this.dataSource.cercaDomande(
-      this.concorso.id,
-      this.input.nativeElement.value,
-      this.sort.direction,
-      this.paginator.pageIndex,
-      this.paginator.pageSize);
+      this.concorso.url,
+      this.paginator.pageSize,
+      this.paginator.pageIndex + 1,
+      this.cfSearchbar.nativeElement.value,
+      this.cognomeSearchbar.nativeElement.value,
+      this.nomeSearchbar.nativeElement.value,
+      this.idSearchBar.nativeElement.value,
+
+    );
   }
 
-  GotoDomanda(id) {
-    return 'domanda/' + id + '/esito';
+
+
+  GotoDomanda(domanda: ListaDomande) {
+    return 'domanda/' + domanda.codiceFiscale + '/esito';
   }
 
 
@@ -108,13 +192,13 @@ export class ConcorsoComponent implements OnInit, AfterViewInit {
 
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  // /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.getDomandeArray().value.forEach(row => this.selection.select(row));
-    console.log(this.dataSource.getDomandeArray().value);
-  }
+     this.isAllSelected() ?
+       this.selection.clear() :
+       this.dataSource.getDomandeArray().value.forEach(row => this.selection.select(row));
+     console.log(this.dataSource.getDomandeArray().value);
+   }
 
 
   startToggle() {

@@ -1,15 +1,15 @@
-import {Domanda} from '../models';
 import {DataSource} from '@angular/cdk/table';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import {catchError, finalize} from 'rxjs/operators';
+import {catchError, finalize, map} from 'rxjs/operators';
 import {CollectionViewer} from '@angular/cdk/collections';
 import {ApiService} from './api.service';
+import {DomandeEntity, ListaDomande, RisultatiRicercaDomanda} from '../models/interfacesv2/interfacev2';
 
 
-export class ListaDomandeDatasource implements DataSource<Domanda> {
+export class ListaDomandeDatasource implements DataSource<DomandeEntity> {
 
-  private domandeSubject = new BehaviorSubject<Domanda[]>([]);
-
+  private domandeSubject = new BehaviorSubject<DomandeEntity[]>([]);
+  public numeroRisultati = 0;
 
 // Gestisce il caricamento della tabella
   private loadingSubject = new BehaviorSubject<boolean>(false);
@@ -20,28 +20,28 @@ export class ListaDomandeDatasource implements DataSource<Domanda> {
 
   }
 
-  cercaDomande(idConcorso: number,
-               keywords: string,
-               sortOrder: string,
-               pageIndex: number,
-               pageSize: number) {
+  cercaDomande(url: string, pageSize, numeroPagina: number, cf?: string, cognome?: string, nome?: string, id?: string) {
 
     this.loadingSubject.next(true);
+    console.log(cf);
 
-    this.apiService.cercaDomande(idConcorso, keywords, sortOrder,
-      pageIndex, pageSize).pipe(
+    this.apiService.cercaDomande(url, pageSize, numeroPagina, cf, cognome, nome, id).pipe(
+      map((x: RisultatiRicercaDomanda) => {
+        this.numeroRisultati = x.numeroDomandateTotaleTrovate;
+        return x.domande;
+      }),
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
     )
       .subscribe(lessons => this.domandeSubject.next(lessons));
-
   }
+
 
   getDomandeArray() {
     return this.domandeSubject;
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<Domanda[]> {
+  connect(collectionViewer: CollectionViewer): Observable<DomandeEntity[]> {
     console.log('Connecting data source');
     return this.domandeSubject.asObservable();
   }

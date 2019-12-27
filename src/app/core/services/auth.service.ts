@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {HandleError, HttpErrorHandler} from './http-error-handler.service';
 import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
   }
 
   validateJwt(): Observable<any> {
-    return this.http.get('http://localhost:8080/whoami', {observe: 'response'}).pipe(
+    return this.http.get(environment.endpoint.listaConcorsi, {observe: 'response'}).pipe(
     );
   }
 

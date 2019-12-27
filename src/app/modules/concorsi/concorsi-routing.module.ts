@@ -1,31 +1,41 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {ConcorsoComponent, ListaConcorsiComponent} from './components';
-import {ConcorsoResolver} from '../../core/services';
-import {DOMANDE_ROUTES} from '../../shared/routes/content-layout.routes';
+import {EsitoProvaComponent} from './components/esito-prova/esito-prova.component';
+import {DomandaResolver, EsitoResolver} from '../../core/services';
+import {DomandaCandidatoComponent, DomandaDinamica} from './components/domanda-candidato/domanda-candidato.component';
 
 export const routes: Routes = [
-  {
-    path: '',
-    children: [
       {
         path: '',
         component: ListaConcorsiComponent,
       },
       {
-        path: ':idConcorso',
+        path: 'domande/:nome/:url',
         component: ConcorsoComponent,
-        children: DOMANDE_ROUTES,
-        resolve: {
-          concorso: ConcorsoResolver
-        }
       },
       {
-        path: ':idConcorso/domanda',
-        children: DOMANDE_ROUTES,
+        path: 'domande/:nome/:url/domanda/:cf/esito',
+        resolve: {
+          esiti: EsitoResolver
+        },
+        component: EsitoProvaComponent,
       },
-    ]
-  },
+      {
+        path: 'domande/:nome/:url/domanda/:cf',
+        resolve: {
+          domanda: DomandaResolver
+        },
+        component: DomandaCandidatoComponent,
+      },
+      {
+        path: 'domande/:nome/:url/domanda/:cf/esito',
+        resolve: {
+          esiti: EsitoResolver
+        },
+        component: EsitoProvaComponent,
+      },
+
 ];
 
 @NgModule({
